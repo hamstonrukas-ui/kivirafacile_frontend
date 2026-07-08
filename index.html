@@ -3158,6 +3158,44 @@
     margin: 0 5px;
     color: #999;
 }
+        .whatsapp-message{
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    background: #fff;
+    color: #333;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    box-shadow: 0 4px 10px rgba(0,0,0,.2);
+    z-index: 9999;
+    max-width: 220px;
+}
+
+.whatsapp-btn{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25D366;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-radius: 50px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,.3);
+    z-index: 9999;
+}
+
+.whatsapp-btn img{
+    width: 28px;
+    height: 28px;
+}
 
     </style>
 </head>
@@ -5155,8 +5193,22 @@ function openProgress() {
         <div class="info-card">
             <h3>📧 Besoin d'aide supplémentaire ?</h3>
             <p style="margin-bottom:14px">Notre équipe est là pour vous aider. N'hésitez pas à nous contacter !</p>
-            <button class="contact-btn" onclick="sendEmail()">✉️ Envoyer un email</button>
+            
+
+
         </div>
+        <!-- Message -->
+<div class="whatsapp-message">
+    Contactez-nous en cliquant sur ce bouton 👇
+</div>
+
+<!-- Bouton WhatsApp -->
+<a href="https://wa.me/243855841999?text=Bonjour%20je%20viens%20de%20votre%20site."
+   class="whatsapp-btn"
+   target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    <span>WhatsApp</span>
+</a>
 
     </div>
 </div>
