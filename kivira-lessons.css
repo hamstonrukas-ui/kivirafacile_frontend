@@ -1,0 +1,1240 @@
+/* ═══════════════════════════════════════════════════════════════
+   KIVIRA LESSONS - CSS COMPLET
+   Ajoutez ce CSS dans votre fichier styles.css
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   GRILLE DES CATÉGORIES
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.kivira-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.kivira-category-card {
+    position: relative;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    padding: 24px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.kivira-category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.kivira-category-card.locked {
+    opacity: 0.6;
+    filter: grayscale(0.3);
+    cursor: not-allowed;
+}
+
+.kivira-category-icon {
+    font-size: 48px;
+    line-height: 1;
+}
+
+.kivira-category-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+}
+
+.kivira-category-count {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+}
+
+.kivira-premium-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   LISTE DES LEÇONS
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.kivira-lesson-list {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.kivira-lesson-list-header {
+    margin-bottom: 24px;
+}
+
+.kivira-back-btn {
+    background: transparent;
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    color: #667eea;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+    margin-bottom: 16px;
+}
+
+.kivira-back-btn:hover {
+    background: rgba(102, 126, 234, 0.1);
+    border-color: #667eea;
+}
+
+.kivira-back-icon {
+    font-size: 20px;
+}
+
+.kivira-category-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0 0 8px 0;
+}
+
+.kivira-category-progress {
+    font-size: 14px;
+    color: #718096;
+}
+
+.kivira-lesson-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.kivira-lesson-item {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    position: relative;
+}
+
+.kivira-lesson-item:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.kivira-lesson-number {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.kivira-lesson-content {
+    flex: 1;
+}
+
+.kivira-lesson-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0 0 4px 0;
+}
+
+.kivira-lesson-phrase {
+    font-size: 14px;
+    color: #718096;
+    margin: 0;
+}
+
+.kivira-lesson-arrow {
+    font-size: 20px;
+    color: #cbd5e0;
+}
+
+.kivira-lesson-item.completed .kivira-lesson-number {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.kivira-lesson-checkmark {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 24px;
+    height: 24px;
+    background: #10b981;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   VUE DE LA LEÇON
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.kivira-lesson-view {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.kivira-lesson-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.kivira-step-indicator {
+    font-size: 16px;
+    font-weight: 600;
+    color: #667eea;
+}
+
+.kivira-step {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.kivira-step-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.kivira-step-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0;
+    text-align: center;
+}
+
+.kivira-image-container {
+    width: 200px;
+    height: 200px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.kivira-step-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.kivira-phrase-container {
+    text-align: center;
+}
+
+.kivira-phrase {
+    font-size: 28px;
+    font-weight: 700;
+    color: #667eea;
+    margin: 0;
+}
+
+.kivira-translation {
+    font-size: 18px;
+    color: #718096;
+    margin: 8px 0 0 0;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   BOUTONS DES ÉTAPES
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.kivira-next-btn,
+.kivira-check-btn,
+.kivira-finish-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.kivira-next-btn:hover,
+.kivira-check-btn:hover,
+.kivira-finish-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.5);
+}
+
+.kivira-audio-btn {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.kivira-audio-btn:hover {
+    background: rgba(102, 126, 234, 0.2);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ÉTAPE 2 : OPTIONS DE TRADUCTION
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.kivira-translation-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.kivira-option-btn {
+    all: unset;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, rgba(30, 30, 50, 0.9), rgba(50, 50, 70, 0.9));
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.kivira-option-btn:hover {
+    transform: scale(1.02);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.kivira-option-main {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.kivira-option-translations {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(200, 200, 220, 0.9);
+    font-style: italic;
+}
+
+.kivira-option-btn.correct {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    border-color: #34d399 !important;
+    animation: correctPulse 0.5s ease;
+}
+
+.kivira-option-btn.incorrect {
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+    border-color: #f87171 !important;
+    animation: shake 0.5s ease;
+}
+
+@keyframes correctPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ÉTAPE 3 : BANQUE DE MOTS
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.kivira-word-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 12px;
+    min-height: 100px;
+}
+
+.kivira-word-chip {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: move;
+    transition: transform 0.2s;
+    user-select: none;
+}
+
+.kivira-word-chip:hover {
+    transform: scale(1.05);
+}
+
+.kivira-word-answer {
+    min-height: 80px;
+    background: white;
+    border: 2px dashed rgba(102, 126, 234, 0.3);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ÉTAPE 4 : COMPLÉTION
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.kivira-learned-phrase {
+    text-align: center;
+    padding: 24px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    border-radius: 12px;
+}
+
+.kivira-completion-message {
+    text-align: center;
+}
+
+.kivira-completion-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    margin: 0 auto 16px;
+}
+
+.kivira-completion-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: #10b981;
+    margin: 0;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   MODAL PREMIUM
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.kivira-premium-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kivira-premium-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+}
+
+.kivira-premium-content {
+    position: relative;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.kivira-premium-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 32px;
+    cursor: pointer;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kivira-premium-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.kivira-premium-title {
+    color: white;
+    font-size: 28px;
+    margin-bottom: 16px;
+}
+
+.kivira-premium-text {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+    margin-bottom: 24px;
+}
+
+.kivira-premium-features {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.kivira-premium-feature {
+    color: white;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.kivira-premium-feature:last-child {
+    margin-bottom: 0;
+}
+
+.kivira-feature-icon {
+    font-size: 20px;
+}
+
+.kivira-premium-price {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+}
+
+.kivira-price-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.kivira-price-amount {
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.kivira-premium-buy-btn {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    border: none;
+    padding: 18px 40px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 16px;
+    transition: transform 0.2s;
+}
+
+.kivira-premium-buy-btn:hover {
+    transform: scale(1.05);
+}
+
+.kivira-premium-later-btn {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@media (max-width: 768px) {
+    .kivira-categories-grid {
+        grid-template-columns: 1fr;
+        padding: 16px;
+    }
+    
+    .kivira-step {
+        padding: 24px 16px;
+    }
+    
+    .kivira-step-title {
+        font-size: 20px;
+    }
+    
+    .kivira-phrase {
+        font-size: 24px;
+    }
+    
+    .kivira-image-container {
+        width: 150px;
+        height: 150px;
+    }
+}
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CONTENEUR DE L'ÉTAPE 3
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+#kivira-step-3 .kivira-step-content {
+    background: white;
+    border-radius: 20px;
+    padding: 32px 24px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   FOND AVEC EMOJI
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.kivira-step3-header {
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+    border-radius: 16px;
+    padding: 40px 20px;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.kivira-step3-emoji {
+    font-size: 80px;
+    line-height: 1;
+    margin: 0;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   INSTRUCTIONS
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+#kivira-step3-instructions {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   BANQUE DE MOTS (Boutons sources)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.kivira-word-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    padding: 20px;
+    background: transparent;
+    min-height: auto;
+    margin-bottom: 24px;
+}
+
+.kivira-word-chip {
+    /* Style des boutons de mots - Violet comme sur l'image */
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 50px; /* Très arrondi comme des pilules */
+    font-size: 18px;
+    font-weight: 600;
+    cursor: move;
+    cursor: grab;
+    transition: all 0.2s ease;
+    user-select: none;
+    box-shadow: 0 4px 8px rgba(124, 58, 237, 0.3);
+    border: none;
+}
+
+.kivira-word-chip:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(124, 58, 237, 0.4);
+}
+
+.kivira-word-chip:active {
+    cursor: grabbing;
+    transform: scale(0.98);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ZONE DE DÉPÔT (Avec bordure pointillée)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.kivira-word-answer {
+    min-height: 120px;
+    background: white;
+    border: 3px dashed rgba(156, 163, 175, 0.4); /* Bordure pointillée grise */
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    margin-bottom: 24px;
+}
+
+.kivira-word-answer:empty::after {
+    content: 'Glissez les mots ici';
+    color: #9ca3af;
+    font-size: 16px;
+    font-style: italic;
+}
+
+/* Hint texte dans la zone vide */
+.drop-hint {
+    color: #9ca3af;
+    font-size: 16px;
+    font-style: italic;
+    text-align: center;
+    width: 100%;
+}
+
+/* Effet au survol pendant le drag */
+.kivira-word-answer.drag-over {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.05);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   MOTS PLACÉS DANS LA ZONE
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.placed-word {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    position: relative;
+    cursor: default;
+    box-shadow: 0 4px 8px rgba(124, 58, 237, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Bouton X pour retirer un mot */
+.remove-word {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background 0.2s;
+    margin-left: 8px;
+}
+
+.remove-word:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   BOUTON VALIDER
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.kivira-check-btn {
+    background: #e5e7eb; /* Gris par défaut (désactivé) */
+    color: #9ca3af;
+    border: none;
+    padding: 18px 40px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: not-allowed;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.kivira-check-btn:not(:disabled) {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.kivira-check-btn:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.5);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ANIMATIONS
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* État correct */
+.kivira-word-answer.correct {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+}
+
+/* État incorrect */
+.kivira-word-answer.incorrect {
+    border-color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+    animation: shake 0.5s ease;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@media (max-width: 640px) {
+    .kivira-word-chip,
+    .placed-word {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+    
+    .kivira-step3-emoji {
+        font-size: 60px;
+    }
+    
+    #kivira-step3-instructions {
+        font-size: 16px;
+    }
+}
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CONTENEUR ÉTAPE 4
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+#kivira-step-4 .kivira-step-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 32px 24px;
+    background: white;
+    border-radius: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   STATUS D'ENREGISTREMENT
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.recording-status {
+    text-align: center;
+    padding: 16px 24px;
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 12px;
+    font-size: 16px;
+    color: #666;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.recording-status.success {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.recording-status.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   BOUTON MICROPHONE
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.mic-btn {
+    all: unset;
+    box-sizing: border-box;
+    width: 160px;
+    height: 160px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.mic-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+    height: 140px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.mic-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.5);
+}
+
+.mic-btn:active {
+    transform: scale(0.95);
+}
+
+.mic-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ICÔNE ET TEXTE DU MICRO
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.mic-icon {
+    font-size: 56px;
+    line-height: 1;
+    z-index: 1;
+}
+
+.mic-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    z-index: 1;
+    padding: 0 12px;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ÉTAT ENREGISTREMENT
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.mic-btn.recording {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.mic-btn.recording::before {
+    animation: ripple 1.5s ease-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes ripple {
+    0% {
+        width: 140px;
+        height: 140px;
+        opacity: 0.6;
+    }
+    100% {
+        width: 200px;
+        height: 200px;
+        opacity: 0;
+    }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   BOUTON TERMINER
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+#completeBtn {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+    padding: 18px 40px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    width: 100%;
+    max-width: 300px;
+}
+
+#completeBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.5);
+}
+
+#completeBtn:active {
+    transform: translateY(0);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@media (max-width: 640px) {
+    .mic-btn {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .mic-icon {
+        font-size: 48px;
+    }
+    
+    .mic-text {
+        font-size: 13px;
+    }
+    
+    .recording-status {
+        font-size: 14px;
+        padding: 12px 16px;
+    }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ANIMATIONS DE SUCCÈS/ERREUR
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.mic-btn.success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    animation: successPulse 0.6s ease;
+}
+
+.mic-btn.error {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    animation: shake 0.5s ease;
+}
+
+@keyframes successPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+    20%, 40%, 60%, 80% { transform: translateX(8px); }
+}
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   OPTIONS DE TRADUCTION - FOND BLANC
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.kivira-translation-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.kivira-option-btn {
+    all: unset;
+    box-sizing: border-box;
+    
+    /* FOND BLANC + TEXTE NOIR */
+    background: white !important;
+    color: #1a202c !important;
+    
+    /* Bordure grise élégante */
+    border: 2px solid #e5e7eb !important;
+    border-radius: 12px;
+    padding: 20px 24px;
+    
+    /* Centrage */
+    text-align: center;
+    
+    /* Interaction */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    /* Ombre légère */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.kivira-option-btn:hover {
+    /* Survol : bordure bleue + légère élévation */
+    border-color: #667eea !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.kivira-option-btn:active {
+    transform: translateY(0);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   TEXTE PRINCIPAL (Français)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.kivira-option-main {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a202c !important; /* Noir */
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   TRADUCTIONS EN BAS (EN • SW)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.kivira-option-translations {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #6b7280 !important; /* Gris */
+    font-style: italic;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ÉTATS : CORRECT / INCORRECT
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.kivira-option-btn.correct {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    border-color: #34d399 !important;
+    animation: correctPulse 0.5s ease;
+}
+
+.kivira-option-btn.correct .kivira-option-main,
+.kivira-option-btn.correct .kivira-option-translations {
+    color: white !important;
+}
+
+.kivira-option-btn.incorrect {
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+    border-color: #f87171 !important;
+    animation: shake 0.5s ease;
+}
+
+.kivira-option-btn.incorrect .kivira-option-main,
+.kivira-option-btn.incorrect .kivira-option-translations {
+    color: white !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ANIMATIONS
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@keyframes correctPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@media (max-width: 640px) {
+    .kivira-option-btn {
+        padding: 16px 20px;
+    }
+    
+    .kivira-option-main {
+        font-size: 16px;
+    }
+    
+    .kivira-option-translations {
+        font-size: 12px;
+    }
+}

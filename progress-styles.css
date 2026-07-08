@@ -1,0 +1,242 @@
+/* ===== STYLES SYSTÈME DE PROGRÈS ===== */
+
+/* Cartes de statistiques dans Mes Progrès */
+.progress-stat-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+}
+
+.progress-stat-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.progress-stat-card.highlight {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(109, 40, 217, 0.2) 100%);
+    border-color: rgba(124, 58, 237, 0.3);
+}
+
+.progress-stat-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+.progress-stat-content {
+    flex: 1;
+}
+
+.progress-stat-title {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 4px;
+}
+
+.progress-stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.progress-stat-detail {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+}
+
+/* ===== LEÇONS TERMINÉES (COCHES) ===== */
+
+/* Classe ajoutée aux leçons terminées */
+.lesson-item.lesson-completed {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+    border-left: 4px solid #10b981;
+}
+
+.lesson-item.lesson-completed:hover {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.15) 100%);
+}
+
+/* Coche verte sur les leçons terminées */
+.completion-check {
+    font-size: 24px;
+    margin-left: auto;
+    animation: checkmarkAppear 0.5s ease;
+}
+
+@keyframes checkmarkAppear {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Message dans les félicitations */
+.lesson-checked {
+    color: #10b981;
+    font-weight: 600;
+    margin-top: 12px;
+    font-size: 14px;
+}
+
+/* ===== PROFIL AMÉLIORÉ ===== */
+
+/* Badge Premium dans le profil */
+.dd-badge.badge-premium {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+}
+
+.dd-badge.badge-free {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Initiale dans le profil */
+#profileInitial {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== BOUTON DE DÉCONNEXION ===== */
+
+/* Menu utilisateur (déjà stylé mais on peut améliorer) */
+.user-menu {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    min-width: 220px;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.user-menu.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+.user-menu-header {
+    padding: 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.user-menu-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 4px;
+}
+
+.user-menu-email {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 8px;
+}
+
+.user-menu-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.user-menu-badge.badge-premium {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+}
+
+.user-menu-badge.badge-pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.user-menu-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #374151;
+    font-size: 14px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.user-menu-item:last-child {
+    border-bottom: none;
+    border-radius: 0 0 12px 12px;
+}
+
+.user-menu-item:hover {
+    background: #f9fafb;
+}
+
+.user-menu-item:active {
+    background: #f3f4f6;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+    .progress-stat-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .progress-stat-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+    
+    .progress-stat-value {
+        font-size: 18px;
+    }
+}
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.progress-stat-card {
+    animation: fadeInUp 0.5s ease;
+}
+
+.progress-stat-card:nth-child(1) { animation-delay: 0.1s; }
+.progress-stat-card:nth-child(2) { animation-delay: 0.2s; }
+.progress-stat-card:nth-child(3) { animation-delay: 0.3s; }
+.progress-stat-card:nth-child(4) { animation-delay: 0.4s; }

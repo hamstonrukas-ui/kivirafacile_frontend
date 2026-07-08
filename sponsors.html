@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mur des Sponsors - KiviraFacile</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        
+        /* SECTION DES SPONSORS */
+        .sponsors-section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .sponsor-category {
+            margin-bottom: 40px;
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sponsor-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+        }
+        
+        /* Diamant */
+        .category-diamond {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            border: 2px solid #0ea5e9;
+        }
+        .category-diamond::before { background: #0ea5e9; }
+        .category-diamond .category-icon { color: #0ea5e9; }
+        
+        /* Or */
+        .category-gold {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #f59e0b;
+        }
+        .category-gold::before { background: #f59e0b; }
+        .category-gold .category-icon { color: #f59e0b; }
+        
+        /* Argent */
+        .category-silver {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            border: 2px solid #64748b;
+        }
+        .category-silver::before { background: #64748b; }
+        .category-silver .category-icon { color: #64748b; }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .category-icon {
+            font-size: 48px;
+        }
+        
+        .category-info h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .category-info .price {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .sponsors-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .sponsor-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .sponsor-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 10px;
+        }
+        
+        .sponsor-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .sponsor-date {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .empty-sponsors {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-style: italic;
+        }
+        
+        /* SECTION CRITÈRES */
+        .criteria-section {
+            background: #f9fafb;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .criteria-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .criteria-card h4 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .criteria-card .badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .badge-diamond { background: #0ea5e9; color: white; }
+        .badge-gold { background: #f59e0b; color: white; }
+        .badge-silver { background: #64748b; color: white; }
+        
+        .advantages-list {
+            list-style: none;
+        }
+        
+        .advantages-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .advantages-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        /* BOUTON DEVENIR SPONSOR */
+        .cta-section {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            color: white;
+        }
+        
+        .cta-section h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .cta-section p {
+            font-size: 16px;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: #667eea;
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .criteria-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sponsors-list {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💎 Mur des Sponsors</h1>
+        <p class="subtitle">Merci à nos généreux sponsors qui soutiennent KiviraFacile !</p>
+        
+        <!-- SPONSORS DIAMANT -->
+        <div class="sponsors-section">
+            <h2 class="section-title">Nos Sponsors</h2>
+            
+            <div class="sponsor-category category-diamond">
+                <div class="category-header">
+                    <div class="category-icon">💎</div>
+                    <div class="category-info">
+                        <h3>Sponsors Diamant</h3>
+                        <div class="price">Contribution : 50 USD</div>
+                    </div>
+                </div>
+                
+                <div class="sponsors-list" id="diamond-sponsors">
+                    <!-- Les sponsors seront ajoutés dynamiquement -->
+                    <div class="empty-sponsors">
+                        🌟 Soyez le premier sponsor Diamant !
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SPONSORS OR -->
+            <div class="sponsor-category category-gold">
+                <div class="category-header">
+                    <div class="category-icon">🥇</div>
+                    <div class="category-info">
+                        <h3>Sponsors Or</h3>
+                        <div class="price">Contribution : 20 USD</div>
+                    </div>
+                </div>
+                
+                <div class="sponsors-list" id="gold-sponsors">
+                    <div class="empty-sponsors">
+                        🌟 Soyez le premier sponsor Or !
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SPONSORS ARGENT -->
+            <div class="sponsor-category category-silver">
+                <div class="category-header">
+                    <div class="category-icon">🥈</div>
+                    <div class="category-info">
+                        <h3>Sponsors Argent</h3>
+                        <div class="price">Contribution : 10 USD</div>
+                    </div>
+                </div>
+                
+                <div class="sponsors-list" id="silver-sponsors">
+                    <div class="empty-sponsors">
+                        🌟 Soyez le premier sponsor Argent !
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CRITÈRES ET AVANTAGES -->
+        <div class="criteria-section">
+            <h2 class="section-title">Comment Devenir Sponsor ?</h2>
+            
+            <div class="criteria-grid">
+                <!-- DIAMANT -->
+                <div class="criteria-card">
+                    <h4>💎 Sponsor Diamant</h4>
+                    <div class="badge badge-diamond">50 USD</div>
+                    
+                    <ul class="advantages-list">
+                        <li><strong>Participer à la prise de décision</strong> sur l'évolution du projet</li>
+                        <li><strong>Faire passer des publicités</strong> de vos activités au sein de la plateforme</li>
+                        <li><strong>Suggérer des améliorations</strong> de la plateforme</li>
+                        <li><strong>Accès en avance</strong> aux fonctionnalités futures</li>
+                        <li><strong>Accès aux fonctionnalités premium</strong> en priorité</li>
+                        <li><strong>Votre nom sur le mur</strong> des sponsors</li>
+                    </ul>
+                </div>
+                
+                <!-- OR -->
+                <div class="criteria-card">
+                    <h4>🥇 Sponsor Or</h4>
+                    <div class="badge badge-gold">20 USD</div>
+                    
+                    <ul class="advantages-list">
+                        <li><strong>Suggérer des améliorations</strong> de la plateforme</li>
+                        <li><strong>Accès en avance</strong> aux fonctionnalités futures</li>
+                        <li><strong>Accès aux fonctionnalités premium</strong> en priorité</li>
+                        <li><strong>Votre nom sur le mur</strong> des sponsors</li>
+                    </ul>
+                </div>
+                
+                <!-- ARGENT -->
+                <div class="criteria-card">
+                    <h4>🥈 Sponsor Argent</h4>
+                    <div class="badge badge-silver">10 USD</div>
+                    
+                    <ul class="advantages-list">
+                        <li><strong>Accès aux fonctionnalités premium</strong> en priorité</li>
+                        <li><strong>Votre nom sur le mur</strong> des sponsors</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- APPEL À L'ACTION -->
+        <div class="cta-section">
+            <h3>🚀 Soutenez KiviraFacile !</h3>
+            <p>Rejoignez notre communauté de sponsors et aidez-nous à développer la meilleure plateforme d'apprentissage du Kivira.</p>
+            <a href="#premium" class="btn">Devenir Sponsor</a>
+        </div>
+    </div>
+
+    <script src="js/i18n.js"></script>
+    <script>
+        // Exemple de chargement des sponsors depuis une API
+        async function loadSponsors() {
+            try {
+                // Remplacer par votre vraie API
+                const response = await fetch('../api/sponsors.php?action=get_all');
+                const data = await response.json();
+                
+                if (data.success) {
+                    displaySponsors(data.sponsors);
+                }
+            } catch (error) {
+                console.log('Sponsors non chargés:', error);
+            }
+        }
+        
+        function displaySponsors(sponsors) {
+            const diamondContainer = document.getElementById('diamond-sponsors');
+            const goldContainer = document.getElementById('gold-sponsors');
+            const silverContainer = document.getElementById('silver-sponsors');
+            
+            // Filtrer par catégorie
+            const diamond = sponsors.filter(s => s.level === 'diamond');
+            const gold = sponsors.filter(s => s.level === 'gold');
+            const silver = sponsors.filter(s => s.level === 'silver');
+            
+            // Afficher diamant
+            if (diamond.length > 0) {
+                diamondContainer.innerHTML = diamond.map(sponsor => createSponsorCard(sponsor)).join('');
+            }
+            
+            // Afficher or
+            if (gold.length > 0) {
+                goldContainer.innerHTML = gold.map(sponsor => createSponsorCard(sponsor)).join('');
+            }
+            
+            // Afficher argent
+            if (silver.length > 0) {
+                silverContainer.innerHTML = silver.map(sponsor => createSponsorCard(sponsor)).join('');
+            }
+        }
+        
+        function createSponsorCard(sponsor) {
+            const initials = sponsor.name.split(' ').map(n => n[0]).join('').toUpperCase();
+            
+            return `
+                <div class="sponsor-card">
+                    <div class="sponsor-avatar">${initials}</div>
+                    <div class="sponsor-name">${sponsor.name}</div>
+                    <div class="sponsor-date">Depuis ${sponsor.date}</div>
+                </div>
+            `;
+        }
+        
+        // Charger au démarrage
+        // loadSponsors();
+    </script>
+</body>
+</html>

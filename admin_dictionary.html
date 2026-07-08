@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dictionnaire KiviraFacile</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            background: #10b981;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .tab-content.active { display: block; }
+        
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #10b981;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .required::after {
+            content: " *";
+            color: #ef4444;
+        }
+        
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border 0.3s;
+            font-family: inherit;
+        }
+        
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: #10b981;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+        
+        .btn-warning {
+            background: #f59e0b;
+            color: white;
+            padding: 8px 16px;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid #10b981;
+        }
+        
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid #ef4444;
+        }
+        
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .info-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .search-box {
+            margin-bottom: 20px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #10b981;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        tr:hover {
+            background: #f9fafb;
+        }
+        
+        .word-card {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #10b981;
+        }
+        
+        .word-card h4 {
+            color: #10b981;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .translations {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .translation-item {
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        
+        .translation-item strong {
+            color: #666;
+            font-size: 12px;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .examples {
+            background: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-4, .grid-2, .translations {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background: white;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-close {
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📖 Admin Dictionnaire - KiviraFacile (database/dictionary.db)</h1>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('add')">➕ Ajouter</button>
+            <button class="tab" onclick="showTab('list')">📋 Liste</button>
+            <button class="tab" onclick="showTab('search')">🔍 Rechercher</button>
+            <button class="tab" onclick="showTab('stats')">📊 Statistiques</button>
+        </div>
+        
+        <!-- ONGLET 1 : AJOUTER -->
+        <div id="tab-add" class="tab-content active">
+            <h2>➕ Ajouter un mot</h2>
+            
+            <div class="info-box">
+                <h3>🌍 Système multilingue</h3>
+                <p><strong>Structure:</strong> 1 mot Kivira + 3 traductions (Français, English, Swahili)</p>
+                <p><strong>Fichier:</strong> database/dictionary.db</p>
+            </div>
+            
+            <div id="addMessage"></div>
+            
+            <form id="addWordForm">
+                <h3 style="margin: 20px 0;">🇨🇩 Mot Kivira</h3>
+                <div class="form-group">
+                    <label class="required">Mot en Kivira</label>
+                    <input type="text" name="kivira" placeholder="Mwaramutse" required>
+                </div>
+                
+                <h3 style="margin: 20px 0;">🌐 Traductions</h3>
+                <div class="grid-4">
+                    <div class="form-group">
+                        <label class="required">🇫🇷 Français</label>
+                        <input type="text" name="french" placeholder="Bonjour" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">🇬🇧 English</label>
+                        <input type="text" name="english" placeholder="Good morning" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">🇹🇿 Swahili</label>
+                        <input type="text" name="swahili" placeholder="Habari za asubuhi" required>
+                    </div>
+                </div>
+                
+                <h3 style="margin: 20px 0;">🏷️ Catégorisation</h3>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Catégorie</label>
+                        <input type="text" name="category" placeholder="salutations, verbes, nourriture..." list="categories">
+                        <datalist id="categories">
+                            <option value="salutations">
+                            <option value="verbes">
+                            <option value="nourriture">
+                            <option value="famille">
+                            <option value="nombres">
+                        </datalist>
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <input type="text" name="type" placeholder="expression, nom, verbe..." list="types">
+                        <datalist id="types">
+                            <option value="expression">
+                            <option value="nom">
+                            <option value="verbe">
+                            <option value="adjectif">
+                        </datalist>
+                    </div>
+                </div>
+                
+                <h3 style="margin: 20px 0;">📝 Exemples (optionnel)</h3>
+                <div class="form-group">
+                    <label>🇨🇩 Exemple en Kivira</label>
+                    <textarea name="example_kivira" placeholder="Mwaramutse! Amakuru?"></textarea>
+                </div>
+                
+                <div class="grid-4">
+                    <div class="form-group">
+                        <label>🇫🇷 Traduction FR</label>
+                        <textarea name="example_translation_fr" placeholder="Bonjour ! Comment allez-vous ?"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>🇬🇧 Traduction EN</label>
+                        <textarea name="example_translation_en" placeholder="Good morning! How are you?"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>🇹🇿 Traduction SW</label>
+                        <textarea name="example_translation_sw" placeholder="Habari za asubuhi! Habari gani?"></textarea>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">💾 Ajouter le mot</button>
+            </form>
+        </div>
+        
+        <!-- ONGLET 2 : LISTE -->
+        <div id="tab-list" class="tab-content">
+            <h2>📋 Liste des mots</h2>
+            
+            <div class="form-group">
+                <label>Filtrer par catégorie</label>
+                <select id="filterCategory" onchange="loadWords()">
+                    <option value="">Toutes les catégories</option>
+                </select>
+            </div>
+            
+            <div id="wordsList"></div>
+        </div>
+        
+        <!-- ONGLET 3 : RECHERCHER -->
+        <div id="tab-search" class="tab-content">
+            <h2>🔍 Rechercher</h2>
+            
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Rechercher dans toutes les langues..." onkeyup="searchWords()">
+            </div>
+            
+            <div id="searchResults"></div>
+        </div>
+        
+        <!-- ONGLET 4 : STATISTIQUES -->
+        <div id="tab-stats" class="tab-content">
+            <h2>📊 Statistiques</h2>
+            <div class="stats" id="statsContainer"></div>
+            
+            <h3>Par catégorie</h3>
+            <div id="categoryStats"></div>
+            
+            <h3 style="margin-top: 30px;">Par type</h3>
+            <div id="typeStats"></div>
+        </div>
+    </div>
+    
+    <!-- MODAL MODIFICATION -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeEditModal()">&times;</span>
+            <h2>✏️ Modifier le mot</h2>
+            <div id="editMessage"></div>
+            <form id="editWordForm">
+                <input type="hidden" name="id" id="edit_id">
+                
+                <div class="form-group">
+                    <label class="required">🇨🇩 Kivira</label>
+                    <input type="text" name="kivira" id="edit_kivira" required>
+                </div>
+                
+                <div class="grid-4">
+                    <div class="form-group">
+                        <label class="required">🇫🇷 Français</label>
+                        <input type="text" name="french" id="edit_french" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">🇬🇧 English</label>
+                        <input type="text" name="english" id="edit_english" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">🇹🇿 Swahili</label>
+                        <input type="text" name="swahili" id="edit_swahili" required>
+                    </div>
+                </div>
+                
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Catégorie</label>
+                        <input type="text" name="category" id="edit_category">
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <input type="text" name="type" id="edit_type">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>🇨🇩 Exemple Kivira</label>
+                    <textarea name="example_kivira" id="edit_example_kivira"></textarea>
+                </div>
+                
+                <div class="grid-4">
+                    <div class="form-group">
+                        <label>🇫🇷 Exemple FR</label>
+                        <textarea name="example_translation_fr" id="edit_example_translation_fr"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>🇬🇧 Exemple EN</label>
+                        <textarea name="example_translation_en" id="edit_example_translation_en"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>🇹🇿 Exemple SW</label>
+                        <textarea name="example_translation_sw" id="edit_example_translation_sw"></textarea>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">💾 Enregistrer</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        const API_URL = '../api/dictionary_admin_api.php';
+        
+        // ============================================
+        // AJOUTER UN MOT
+        // ============================================
+        document.getElementById('addWordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                const response = await fetch(API_URL + '?action=add', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage('addMessage', '✅ Mot ajouté avec succès !', 'success');
+                    e.target.reset();
+                    loadStats();
+                } else {
+                    showMessage('addMessage', '❌ Erreur : ' + result.error, 'error');
+                }
+            } catch (error) {
+                showMessage('addMessage', '❌ Erreur : ' + error.message, 'error');
+            }
+        });
+        
+        // ============================================
+        // CHARGER LES MOTS
+        // ============================================
+        async function loadWords() {
+            const category = document.getElementById('filterCategory').value;
+            const url = category ? 
+                API_URL + '?action=filter_category&category=' + encodeURIComponent(category) :
+                API_URL + '?action=get_all';
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayWords(data.words || []);
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+            }
+        }
+        
+        function displayWords(words) {
+            const container = document.getElementById('wordsList');
+            
+            if (words.length === 0) {
+                container.innerHTML = '<p style="color: #666;">Aucun mot</p>';
+                return;
+            }
+            
+            container.innerHTML = words.map(word => `
+                <div class="word-card">
+                    <h4>🇨🇩 ${word.kivira}</h4>
+                    
+                    <div class="translations">
+                        <div class="translation-item">
+                            <strong>🇫🇷 Français</strong>
+                            ${word.french}
+                        </div>
+                        <div class="translation-item">
+                            <strong>🇬🇧 English</strong>
+                            ${word.english}
+                        </div>
+                        <div class="translation-item">
+                            <strong>🇹🇿 Swahili</strong>
+                            ${word.swahili}
+                        </div>
+                    </div>
+                    
+                    ${word.category || word.type ? `
+                        <div style="margin: 10px 0;">
+                            ${word.category ? `<span style="background: #e0f2fe; padding: 5px 10px; border-radius: 5px; margin-right: 10px;">📁 ${word.category}</span>` : ''}
+                            ${word.type ? `<span style="background: #fef3c7; padding: 5px 10px; border-radius: 5px;">🏷️ ${word.type}</span>` : ''}
+                        </div>
+                    ` : ''}
+                    
+                    ${word.example_kivira ? `
+                        <div class="examples">
+                            <strong>📝 Exemple:</strong>
+                            <p style="margin: 10px 0;"><em>${word.example_kivira}</em></p>
+                            <div class="translations">
+                                ${word.example_translation_fr ? `<div class="translation-item"><strong>🇫🇷</strong> ${word.example_translation_fr}</div>` : ''}
+                                ${word.example_translation_en ? `<div class="translation-item"><strong>🇬🇧</strong> ${word.example_translation_en}</div>` : ''}
+                                ${word.example_translation_sw ? `<div class="translation-item"><strong>🇹🇿</strong> ${word.example_translation_sw}</div>` : ''}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    <div style="margin-top: 15px;">
+                        <button class="btn btn-warning" onclick="editWord(${word.id})">✏️ Modifier</button>
+                        <button class="btn btn-danger" onclick="deleteWord(${word.id}, '${word.kivira.replace(/'/g, "\\'")}')">🗑️ Supprimer</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // ============================================
+        // MODIFIER UN MOT
+        // ============================================
+        async function editWord(id) {
+            try {
+                const response = await fetch(API_URL + '?action=get_by_id&id=' + id);
+                const data = await response.json();
+                
+                if (data.success && data.word) {
+                    const word = data.word;
+                    
+                    document.getElementById('edit_id').value = word.id;
+                    document.getElementById('edit_kivira').value = word.kivira;
+                    document.getElementById('edit_french').value = word.french;
+                    document.getElementById('edit_english').value = word.english;
+                    document.getElementById('edit_swahili').value = word.swahili;
+                    document.getElementById('edit_category').value = word.category || '';
+                    document.getElementById('edit_type').value = word.type || '';
+                    document.getElementById('edit_example_kivira').value = word.example_kivira || '';
+                    document.getElementById('edit_example_translation_fr').value = word.example_translation_fr || '';
+                    document.getElementById('edit_example_translation_en').value = word.example_translation_en || '';
+                    document.getElementById('edit_example_translation_sw').value = word.example_translation_sw || '';
+                    
+                    document.getElementById('editModal').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+            }
+        }
+        
+        document.getElementById('editWordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                const response = await fetch(API_URL + '?action=update', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage('editMessage', '✅ Mot modifié !', 'success');
+                    setTimeout(() => {
+                        closeEditModal();
+                        loadWords();
+                    }, 1500);
+                } else {
+                    showMessage('editMessage', '❌ Erreur : ' + result.error, 'error');
+                }
+            } catch (error) {
+                showMessage('editMessage', '❌ Erreur : ' + error.message, 'error');
+            }
+        });
+        
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+        
+        // ============================================
+        // SUPPRIMER UN MOT
+        // ============================================
+        async function deleteWord(id, kivira) {
+            if (!confirm(`Supprimer "${kivira}" ?`)) return;
+            
+            try {
+                const response = await fetch(API_URL + '?action=delete&id=' + id);
+                const result = await response.json();
+                
+                if (result.success) {
+                    loadWords();
+                    loadStats();
+                    showMessage('addMessage', '✅ Mot supprimé', 'success');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+            }
+        }
+        
+        // ============================================
+        // RECHERCHER
+        // ============================================
+        async function searchWords() {
+            const query = document.getElementById('searchInput').value;
+            
+            if (!query) {
+                document.getElementById('searchResults').innerHTML = '';
+                return;
+            }
+            
+            try {
+                const response = await fetch(API_URL + '?action=search&q=' + encodeURIComponent(query));
+                const data = await response.json();
+                
+                if (data.success) {
+                    const container = document.getElementById('searchResults');
+                    if (data.results.length === 0) {
+                        container.innerHTML = '<p style="color: #666;">Aucun résultat</p>';
+                    } else {
+                        displayWords(data.results);
+                        container.innerHTML = document.getElementById('wordsList').innerHTML;
+                    }
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+            }
+        }
+        
+        // ============================================
+        // STATISTIQUES
+        // ============================================
+        async function loadStats() {
+            try {
+                const response = await fetch(API_URL + '?action=stats');
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('statsContainer').innerHTML = `
+                        <div class="stat-card">
+                            <h3>${data.total || 0}</h3>
+                            <p>Total de mots</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>4</h3>
+                            <p>Langues (KI/FR/EN/SW)</p>
+                        </div>
+                    `;
+                    
+                    // Par catégorie
+                    if (data.by_category && data.by_category.length > 0) {
+                        const categoryHTML = `
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Catégorie</th>
+                                        <th>Nombre</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${data.by_category.map(cat => `
+                                        <tr>
+                                            <td>${cat.category}</td>
+                                            <td><strong>${cat.count}</strong></td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        `;
+                        document.getElementById('categoryStats').innerHTML = categoryHTML;
+                        
+                        // Mettre à jour le filtre
+                        const filterSelect = document.getElementById('filterCategory');
+                        filterSelect.innerHTML = '<option value="">Toutes les catégories</option>' +
+                            data.by_category.map(cat => `<option value="${cat.category}">${cat.category} (${cat.count})</option>`).join('');
+                    }
+                    
+                    // Par type
+                    if (data.by_type && data.by_type.length > 0) {
+                        const typeHTML = `
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Nombre</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${data.by_type.map(type => `
+                                        <tr>
+                                            <td>${type.type}</td>
+                                            <td><strong>${type.count}</strong></td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        `;
+                        document.getElementById('typeStats').innerHTML = typeHTML;
+                    }
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+            }
+        }
+        
+        // ============================================
+        // UTILITAIRES
+        // ============================================
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById('tab-' + tabName).classList.add('active');
+            
+            if (tabName === 'list') loadWords();
+            if (tabName === 'stats') loadStats();
+        }
+        
+        function showMessage(containerId, message, type) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `<div class="message ${type}">${message}</div>`;
+            setTimeout(() => container.innerHTML = '', 5000);
+        }
+        
+        // ============================================
+        // INITIALISATION
+        // ============================================
+        window.addEventListener('load', function() {
+            loadStats();
+        });
+    </script>
+</body>
+</html>

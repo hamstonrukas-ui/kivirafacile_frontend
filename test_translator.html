@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Traducteur Kivira</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 36px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        
+        .status {
+            margin-bottom: 20px;
+        }
+        
+        .test {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .test.ok {
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid #10b981;
+        }
+        
+        .test.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid #ef4444;
+        }
+        
+        .translator {
+            display: grid;
+            gap: 15px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            transition: border 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .result {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 100px;
+        }
+        
+        .result.active {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .translation {
+            font-size: 28px;
+            color: #667eea;
+            font-weight: 700;
+            margin: 15px 0;
+        }
+        
+        .meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .meta-item {
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .meta-label {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        .meta-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .warnings {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 6px;
+        }
+        
+        .warnings ul {
+            margin-left: 20px;
+        }
+        
+        .examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .example {
+            background: #f3f4f6;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        
+        .example:hover {
+            background: #e5e7eb;
+            border-color: #667eea;
+        }
+        
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        h3 {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Test Traducteur Kivira</h1>
+        
+        <!-- DIAGNOSTIC -->
+        <div class="card">
+            <h2>📊 Diagnostic Automatique</h2>
+            <div id="status"></div>
+        </div>
+        
+        <!-- TRADUCTEUR -->
+        <div class="card">
+            <h2>🔄 Traducteur</h2>
+            <div class="translator">
+                <input 
+                    type="text" 
+                    id="testInput" 
+                    placeholder="Tapez un mot ou une phrase en français..."
+                >
+                <button onclick="testTranslate()">Traduire en Kivira</button>
+            </div>
+            
+            <div id="result" class="result" style="margin-top: 20px; display: none;">
+                <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Traduction :</div>
+                <div class="translation" id="translationText"></div>
+                
+                <div class="meta" id="metaInfo"></div>
+                
+                <div id="warnings" style="display: none;"></div>
+            </div>
+        </div>
+        
+        <!-- EXEMPLES -->
+        <div class="card">
+            <h2>💡 Exemples à tester</h2>
+            <h3>Salutations :</h3>
+            <div class="examples">
+                <div class="example" onclick="tryExample('bonjour')">bonjour</div>
+                <div class="example" onclick="tryExample('bonsoir')">bonsoir</div>
+                <div class="example" onclick="tryExample('merci')">merci</div>
+                <div class="example" onclick="tryExample('comment allez-vous')">comment allez-vous</div>
+            </div>
+            
+            <h3 style="margin-top: 15px;">Phrases simples :</h3>
+            <div class="examples">
+                <div class="example" onclick="tryExample('je vais à l\\'école')">je vais à l'école</div>
+                <div class="example" onclick="tryExample('je mange du pain')">je mange du pain</div>
+                <div class="example" onclick="tryExample('mon ami')">mon ami</div>
+                <div class="example" onclick="tryExample('la maison')">la maison</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CHARGER LES SCRIPTS -->
+    <script src="data/translator.js"></script>
+    
+    <script>
+        // ========== DIAGNOSTIC AUTOMATIQUE ==========
+        
+        window.addEventListener('load', function() {
+            runDiagnostic();
+        });
+        
+        function runDiagnostic() {
+            const status = document.getElementById('status');
+            let html = '';
+            let allOk = true;
+            
+            // Test 1 : Fonction translateToKivira
+            if (typeof translateToKivira === 'function') {
+                html += '<div class="test ok">✅ translateToKivira existe</div>';
+            } else {
+                html += '<div class="test error">❌ translateToKivira MANQUANTE</div>';
+                html += '<div class="test error">💡 Vérifiez que data/translator.js est bien chargé</div>';
+                allOk = false;
+            }
+            
+            // Test 2 : Base de données mots
+            if (typeof kiviraWords !== 'undefined') {
+                const count = Object.keys(kiviraWords).length;
+                html += `<div class="test ok">✅ Base de mots chargée (${count} mots)</div>`;
+            } else {
+                html += '<div class="test error">❌ Base de mots MANQUANTE</div>';
+                allOk = false;
+            }
+            
+            // Test 3 : Base de données expressions
+            if (typeof kiviraExpressions !== 'undefined') {
+                const count = Object.keys(kiviraExpressions).length;
+                html += `<div class="test ok">✅ Base d'expressions chargée (${count} expressions)</div>`;
+            } else {
+                html += '<div class="test error">❌ Base d\'expressions MANQUANTE</div>';
+                allOk = false;
+            }
+            
+            // Test 4 : Test de traduction
+            if (allOk) {
+                try {
+                    const testResult = translateToKivira('bonjour');
+                    if (testResult && testResult.translation) {
+                        html += `<div class="test ok">✅ Test de traduction réussi : "bonjour" → "${testResult.translation}"</div>`;
+                    } else {
+                        html += '<div class="test error">❌ Test de traduction échoué</div>';
+                    }
+                } catch (error) {
+                    html += `<div class="test error">❌ Erreur lors du test : ${error.message}</div>`;
+                }
+            }
+            
+            status.innerHTML = html;
+        }
+        
+        // ========== TRADUCTEUR INTERACTIF ==========
+        
+        // Permettre traduction avec Entrée
+        document.getElementById('testInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                testTranslate();
+            }
+        });
+        
+        function testTranslate() {
+            const input = document.getElementById('testInput').value;
+            const resultDiv = document.getElementById('result');
+            const translationText = document.getElementById('translationText');
+            const metaInfo = document.getElementById('metaInfo');
+            const warningsDiv = document.getElementById('warnings');
+            
+            if (!input.trim()) {
+                resultDiv.style.display = 'none';
+                return;
+            }
+            
+            try {
+                if (typeof translateToKivira !== 'function') {
+                    alert('❌ Erreur : translateToKivira n\'existe pas. Vérifiez que data/translator.js est chargé.');
+                    return;
+                }
+                
+                const result = translateToKivira(input);
+                
+                // Afficher la traduction
+                translationText.textContent = result.translation || '(vide)';
+                
+                // Afficher les métadonnées
+                metaInfo.innerHTML = `
+                    <div class="meta-item">
+                        <div class="meta-label">Méthode</div>
+                        <div class="meta-value">${result.method || 'N/A'}</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Confiance</div>
+                        <div class="meta-value">${Math.round((result.confidence || 0) * 100)}%</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Mots analysés</div>
+                        <div class="meta-value">${result.analysis ? result.analysis.length : 0}</div>
+                    </div>
+                `;
+                
+                // Afficher les avertissements
+                if (result.warnings && result.warnings.length > 0) {
+                    warningsDiv.innerHTML = `
+                        <div class="warnings">
+                            <strong>⚠️ Avertissements :</strong>
+                            <ul>${result.warnings.map(w => `<li>${w}</li>`).join('')}</ul>
+                        </div>
+                    `;
+                    warningsDiv.style.display = 'block';
+                } else {
+                    warningsDiv.style.display = 'none';
+                }
+                
+                resultDiv.style.display = 'block';
+                resultDiv.classList.add('active');
+                
+                console.log('Résultat complet:', result);
+                
+            } catch (error) {
+                alert(`❌ Erreur : ${error.message}`);
+                console.error('Erreur de traduction:', error);
+            }
+        }
+        
+        function tryExample(text) {
+            document.getElementById('testInput').value = text;
+            testTranslate();
+        }
+    </script>
+</body>
+</html>

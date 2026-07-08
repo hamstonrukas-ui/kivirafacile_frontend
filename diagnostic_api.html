@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic API Bibliothèque</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .test-section {
+            background: #f9fafb;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        
+        .test-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .result {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .success {
+            border-left: 4px solid #10b981;
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .error {
+            border-left: 4px solid #ef4444;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .warning {
+            border-left: 4px solid #f59e0b;
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .info {
+            border-left: 4px solid #3b82f6;
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Diagnostic API Bibliothèque</h1>
+        <p class="subtitle">Testez votre API pour identifier les problèmes</p>
+        
+        <!-- CONFIGURATION -->
+        <div class="test-section">
+            <h2>⚙️ Configuration de l'API</h2>
+            <input type="text" id="apiUrl" placeholder="URL de l'API" value="../api/library_api.php">
+            <button onclick="testAll()">🚀 Lancer tous les tests</button>
+        </div>
+        
+        <!-- TEST 1 : CONNEXION -->
+        <div class="test-section">
+            <h2>Test 1 : Connexion à l'API</h2>
+            <button onclick="testConnection()">▶️ Tester la connexion</button>
+            <div id="result1" class="result" style="display: none;"></div>
+        </div>
+        
+        <!-- TEST 2 : CATÉGORIES -->
+        <div class="test-section">
+            <h2>Test 2 : Récupération des catégories</h2>
+            <button onclick="testCategories()">▶️ Tester les catégories</button>
+            <div id="result2" class="result" style="display: none;"></div>
+        </div>
+        
+        <!-- TEST 3 : STRUCTURE RÉPONSE -->
+        <div class="test-section">
+            <h2>Test 3 : Structure de la réponse</h2>
+            <button onclick="testStructure()">▶️ Analyser la structure</button>
+            <div id="result3" class="result" style="display: none;"></div>
+        </div>
+        
+        <!-- TEST 4 : BASE DE DONNÉES -->
+        <div class="test-section">
+            <h2>Test 4 : Vérification base de données</h2>
+            <p style="color: #666; font-size: 14px; margin-bottom: 10px;">
+                Exécutez cette requête SQL dans phpMyAdmin ou votre terminal :
+            </p>
+            <div class="result">SELECT id, name_fr, name_en, name_sw, name_ki FROM categories;</div>
+        </div>
+        
+        <!-- RÉSUMÉ -->
+        <div class="test-section">
+            <h2>📊 Résumé des tests</h2>
+            <div id="summary" class="result info" style="display: none;"></div>
+        </div>
+    </div>
+    
+    <script>
+        const tests = {
+            connection: false,
+            categories: false,
+            structure: false
+        };
+        
+        function getApiUrl() {
+            return document.getElementById('apiUrl').value;
+        }
+        
+        function showResult(elementId, message, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.className = `result ${type}`;
+            element.innerHTML = message;
+            element.style.display = 'block';
+        }
+        
+        function showLoading(elementId) {
+            showResult(elementId, '<div class="loading"></div> Test en cours...', 'info');
+        }
+        
+        async function testConnection() {
+            showLoading('result1');
+            
+            const apiUrl = getApiUrl();
+            
+            try {
+                console.log('🔍 Test de connexion à:', apiUrl);
+                
+                const response = await fetch(apiUrl + '?action=categories');
+                
+                console.log('📡 Réponse reçue:', response);
+                console.log('📊 Status:', response.status);
+                console.log('📋 Headers:', [...response.headers.entries()]);
+                
+                if (!response.ok) {
+                    tests.connection = false;
+                    showResult('result1', 
+                        `❌ ERREUR HTTP ${response.status}\n\n` +
+                        `URL testée : ${apiUrl}?action=categories\n` +
+                        `Status : ${response.status} ${response.statusText}\n\n` +
+                        `💡 Solutions possibles :\n` +
+                        `- Vérifier que le fichier API existe\n` +
+                        `- Vérifier le chemin de l'API\n` +
+                        `- Vérifier les erreurs PHP (activer error_reporting)\n` +
+                        `- Vérifier les logs du serveur`,
+                        'error'
+                    );
+                    return;
+                }
+                
+                tests.connection = true;
+                showResult('result1',
+                    `✅ CONNEXION RÉUSSIE !\n\n` +
+                    `URL : ${apiUrl}\n` +
+                    `Status : ${response.status} OK\n` +
+                    `Content-Type : ${response.headers.get('Content-Type')}`,
+                    'success'
+                );
+                
+            } catch (error) {
+                tests.connection = false;
+                console.error('❌ Erreur de connexion:', error);
+                
+                showResult('result1',
+                    `❌ ERREUR DE CONNEXION\n\n` +
+                    `Erreur : ${error.message}\n\n` +
+                    `💡 Solutions possibles :\n` +
+                    `- Vérifier que le serveur est démarré\n` +
+                    `- Vérifier l'URL de l'API : ${apiUrl}\n` +
+                    `- Vérifier les erreurs CORS\n` +
+                    `- Ouvrir la console réseau (F12 → Network)`,
+                    'error'
+                );
+            }
+        }
+        
+        async function testCategories() {
+            showLoading('result2');
+            
+            const apiUrl = getApiUrl();
+            
+            try {
+                console.log('🔍 Test des catégories...');
+                
+                const response = await fetch(apiUrl + '?action=categories');
+                const text = await response.text();
+                
+                console.log('📄 Réponse brute:', text);
+                
+                let data;
+                try {
+                    data = JSON.parse(text);
+                    console.log('📦 Données parsées:', data);
+                } catch (e) {
+                    tests.categories = false;
+                    showResult('result2',
+                        `❌ ERREUR DE FORMAT JSON\n\n` +
+                        `La réponse n'est pas du JSON valide !\n\n` +
+                        `Réponse reçue :\n${text.substring(0, 500)}...\n\n` +
+                        `💡 Solutions :\n` +
+                        `- Vérifier qu'il n'y a pas d'erreurs PHP dans l'API\n` +
+                        `- Vérifier qu'il n'y a pas d'echo ou de var_dump\n` +
+                        `- Activer error_reporting dans PHP`,
+                        'error'
+                    );
+                    return;
+                }
+                
+                // Vérifier la structure
+                if (!data.success) {
+                    tests.categories = false;
+                    showResult('result2',
+                        `❌ L'API RETOURNE UNE ERREUR\n\n` +
+                        `Message : ${data.error || 'Erreur inconnue'}\n\n` +
+                        `Réponse complète :\n${JSON.stringify(data, null, 2)}`,
+                        'error'
+                    );
+                    return;
+                }
+                
+                if (!data.categories) {
+                    tests.categories = false;
+                    showResult('result2',
+                        `❌ PAS DE CATÉGORIES DANS LA RÉPONSE\n\n` +
+                        `La réponse ne contient pas de champ "categories" !\n\n` +
+                        `Réponse reçue :\n${JSON.stringify(data, null, 2)}\n\n` +
+                        `💡 Attendu : { success: true, categories: [...] }`,
+                        'error'
+                    );
+                    return;
+                }
+                
+                if (!Array.isArray(data.categories)) {
+                    tests.categories = false;
+                    showResult('result2',
+                        `❌ LES CATÉGORIES NE SONT PAS UN TABLEAU\n\n` +
+                        `Type reçu : ${typeof data.categories}\n\n` +
+                        `Contenu : ${JSON.stringify(data.categories, null, 2)}`,
+                        'error'
+                    );
+                    return;
+                }
+                
+                if (data.categories.length === 0) {
+                    tests.categories = false;
+                    showResult('result2',
+                        `⚠️ TABLEAU VIDE\n\n` +
+                        `L'API retourne un tableau vide !\n\n` +
+                        `💡 Solutions :\n` +
+                        `- Vérifier que la table categories contient des données\n` +
+                        `- Exécuter : SELECT * FROM categories;\n` +
+                        `- Relancer le script Python : python3 scripts/create_library.py`,
+                        'warning'
+                    );
+                    return;
+                }
+                
+                tests.categories = true;
+                showResult('result2',
+                    `✅ CATÉGORIES RÉCUPÉRÉES !\n\n` +
+                    `Nombre de catégories : ${data.categories.length}\n\n` +
+                    `Catégories :\n${data.categories.map((cat, i) => 
+                        `${i + 1}. ${cat.name_fr || cat.name} (ID: ${cat.id})`
+                    ).join('\n')}\n\n` +
+                    `Première catégorie :\n${JSON.stringify(data.categories[0], null, 2)}`,
+                    'success'
+                );
+                
+            } catch (error) {
+                tests.categories = false;
+                console.error('❌ Erreur:', error);
+                
+                showResult('result2',
+                    `❌ ERREUR INATTENDUE\n\n` +
+                    `${error.message}\n\n` +
+                    `Stack : ${error.stack}`,
+                    'error'
+                );
+            }
+        }
+        
+        async function testStructure() {
+            showLoading('result3');
+            
+            const apiUrl = getApiUrl();
+            
+            try {
+                const response = await fetch(apiUrl + '?action=categories');
+                const data = await response.json();
+                
+                let analysis = '📊 ANALYSE DE LA STRUCTURE\n\n';
+                
+                analysis += `Type de réponse : ${typeof data}\n`;
+                analysis += `Clés présentes : ${Object.keys(data).join(', ')}\n\n`;
+                
+                if (data.categories && Array.isArray(data.categories) && data.categories.length > 0) {
+                    const firstCat = data.categories[0];
+                    analysis += `Structure d'une catégorie :\n`;
+                    analysis += `Clés : ${Object.keys(firstCat).join(', ')}\n\n`;
+                    
+                    analysis += `Vérification des champs attendus :\n`;
+                    analysis += `- id : ${firstCat.id ? '✅' : '❌'}\n`;
+                    analysis += `- name_fr : ${firstCat.name_fr ? '✅' : '❌'}\n`;
+                    analysis += `- name_en : ${firstCat.name_en ? '✅' : '❌'}\n`;
+                    analysis += `- name_sw : ${firstCat.name_sw ? '✅' : '❌'}\n`;
+                    analysis += `- name_ki : ${firstCat.name_ki ? '✅' : '❌'}\n`;
+                    
+                    tests.structure = true;
+                    showResult('result3', analysis, 'success');
+                } else {
+                    tests.structure = false;
+                    analysis += '❌ Impossible d\'analyser : pas de catégories\n';
+                    showResult('result3', analysis, 'error');
+                }
+                
+            } catch (error) {
+                tests.structure = false;
+                showResult('result3', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+        
+        async function testAll() {
+            await testConnection();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            await testCategories();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            await testStructure();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            showSummary();
+        }
+        
+        function showSummary() {
+            const total = Object.keys(tests).length;
+            const passed = Object.values(tests).filter(t => t).length;
+            
+            let summary = `📊 RÉSUMÉ DES TESTS\n\n`;
+            summary += `Tests réussis : ${passed}/${total}\n\n`;
+            
+            summary += `✅ Connexion : ${tests.connection ? 'OK' : '❌ ÉCHEC'}\n`;
+            summary += `✅ Catégories : ${tests.categories ? 'OK' : '❌ ÉCHEC'}\n`;
+            summary += `✅ Structure : ${tests.structure ? 'OK' : '❌ ÉCHEC'}\n\n`;
+            
+            if (passed === total) {
+                summary += `🎉 TOUS LES TESTS SONT PASSÉS !\n`;
+                summary += `Votre API fonctionne correctement.`;
+                showResult('summary', summary, 'success');
+            } else {
+                summary += `⚠️ CERTAINS TESTS ONT ÉCHOUÉ\n\n`;
+                summary += `💡 PROCHAINES ÉTAPES :\n`;
+                
+                if (!tests.connection) {
+                    summary += `1. Vérifier que le serveur est démarré\n`;
+                    summary += `2. Vérifier le chemin de l'API\n`;
+                }
+                
+                if (!tests.categories) {
+                    summary += `1. Vérifier la base de données\n`;
+                    summary += `2. Exécuter : python3 scripts/create_library.py\n`;
+                    summary += `3. Vérifier les credentials dans l'API\n`;
+                }
+                
+                showResult('summary', summary, 'error');
+            }
+        }
+    </script>
+</body>
+</html>

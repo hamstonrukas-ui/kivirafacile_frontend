@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Logique de Traduction</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .test {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            font-family: monospace;
+        }
+        
+        .test.ok {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .test.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .test.warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+            font-weight: 600;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        
+        pre {
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        
+        .translation-result {
+            background: #f0f4ff;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .translation-text {
+            font-size: 24px;
+            color: #667eea;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test de la Logique de Traduction</h1>
+        
+        <!-- DIAGNOSTIC AUTOMATIQUE -->
+        <div class="card">
+            <h2>🔍 Diagnostic Automatique</h2>
+            <div id="diagnostic"></div>
+            <button onclick="runDiagnostic()">🔄 Relancer le diagnostic</button>
+        </div>
+        
+        <!-- TEST MANUEL -->
+        <div class="card">
+            <h2>✍️ Test Manuel</h2>
+            <input type="text" id="testInput" placeholder="Tapez un mot ou une phrase..." value="bonjour">
+            <button onclick="testTranslation()">🔄 Traduire</button>
+            <button onclick="testMultiple()">🎯 Tester plusieurs exemples</button>
+            
+            <div id="testResult"></div>
+        </div>
+        
+        <!-- STRUCTURE DES DONNÉES -->
+        <div class="card">
+            <h2>📊 Structure des Données</h2>
+            <div id="dataStructure"></div>
+            <button onclick="inspectData()">🔬 Inspecter les données</button>
+        </div>
+        
+        <!-- LOGS CONSOLE -->
+        <div class="card">
+            <h2>📝 Instructions</h2>
+            <p style="color: #666; line-height: 1.6;">
+                Cette page teste VOTRE logique de traduction existante.<br>
+                Elle charge VOS fichiers data/ et appelle VOTRE fonction translateToKivira().<br><br>
+                <strong>Utilisez F12 → Console pour voir les logs détaillés !</strong>
+            </p>
+        </div>
+    </div>
+    
+    <!-- CHARGER VOS FICHIERS DE DONNÉES -->
+    <script src="data/expressions.js"></script>
+    <script src="data/words.js"></script>
+    <script src="data/grammar.js"></script>
+    <script src="data/translator.js"></script>
+    <script src="data/translations.js"></script>
+    <script src="data/demonstratives.js"></script>
+    <script src="data/possessives.js"></script>
+    <script src="data/relatives.js"></script>
+    
+    <script>
+        // ========== DIAGNOSTIC ==========
+        
+        function runDiagnostic() {
+            const diagnosticDiv = document.getElementById('diagnostic');
+            let html = '';
+            
+            console.log('═══════════════════════════════════════');
+            console.log('🔍 DIAGNOSTIC DE LA LOGIQUE DE TRADUCTION');
+            console.log('═══════════════════════════════════════');
+            
+            // Test 1 : Fonction principale
+            const translateFunc = typeof translateToKivira === 'function';
+            html += `<div class="test ${translateFunc ? 'ok' : 'error'}">
+                ${translateFunc ? '✅' : '❌'} Fonction translateToKivira ${translateFunc ? 'existe' : 'MANQUANTE'}
+            </div>`;
+            console.log(translateFunc ? '✅ translateToKivira existe' : '❌ translateToKivira MANQUANTE');
+            
+            // Test 2 : Variables de données
+            const possibleVars = [
+                'kiviraWords', 'words', 'WORDS',
+                'kiviraExpressions', 'expressions', 'EXPRESSIONS',
+                'grammar', 'translations'
+            ];
+            
+            let foundVars = [];
+            possibleVars.forEach(varName => {
+                if (typeof window[varName] !== 'undefined') {
+                    foundVars.push(varName);
+                    const count = window[varName] && typeof window[varName] === 'object' 
+                        ? Object.keys(window[varName]).length 
+                        : '?';
+                    html += `<div class="test ok">
+                        ✅ ${varName} : ${count} entrées
+                    </div>`;
+                    console.log(`✅ ${varName} : ${count} entrées`);
+                }
+            });
+            
+            if (foundVars.length === 0) {
+                html += `<div class="test warning">
+                    ⚠️ Aucune variable de données détectée (normal si données intégrées dans translator.js)
+                </div>`;
+                console.log('⚠️ Aucune variable de données détectée');
+            }
+            
+            // Test 3 : Test de traduction
+            if (translateFunc) {
+                try {
+                    const testResult = translateToKivira('bonjour');
+                    console.log('Test de traduction "bonjour" :', testResult);
+                    
+                    if (testResult && testResult.translation) {
+                        html += `<div class="test ok">
+                            ✅ Test réussi : "bonjour" → "${testResult.translation}"
+                        </div>`;
+                        console.log(`✅ Test réussi : "bonjour" → "${testResult.translation}"`);
+                    } else {
+                        html += `<div class="test error">
+                            ❌ Test échoué : résultat invalide
+                        </div>`;
+                        console.error('❌ Test échoué : résultat invalide');
+                    }
+                } catch (error) {
+                    html += `<div class="test error">
+                        ❌ Erreur : ${error.message}
+                    </div>`;
+                    console.error('❌ Erreur test :', error);
+                }
+            }
+            
+            console.log('═══════════════════════════════════════');
+            diagnosticDiv.innerHTML = html;
+        }
+        
+        // ========== TEST MANUEL ==========
+        
+        function testTranslation() {
+            const input = document.getElementById('testInput').value;
+            const resultDiv = document.getElementById('testResult');
+            
+            if (!input) {
+                resultDiv.innerHTML = '<p style="color: #999;">Tapez un mot...</p>';
+                return;
+            }
+            
+            console.log('═══════════════════════════════════════');
+            console.log(`🔄 Test de traduction : "${input}"`);
+            console.log('═══════════════════════════════════════');
+            
+            try {
+                if (typeof translateToKivira !== 'function') {
+                    resultDiv.innerHTML = '<p style="color: red;">❌ Fonction translateToKivira non disponible</p>';
+                    return;
+                }
+                
+                const result = translateToKivira(input);
+                console.log('Résultat :', result);
+                
+                let html = '<div class="translation-result">';
+                html += `<div><strong>Texte original :</strong> ${input}</div>`;
+                html += `<div class="translation-text">→ ${result.translation || '(vide)'}</div>`;
+                html += `<div><strong>Méthode :</strong> ${result.method || 'N/A'}</div>`;
+                html += `<div><strong>Confiance :</strong> ${Math.round((result.confidence || 0) * 100)}%</div>`;
+                
+                if (result.warnings && result.warnings.length > 0) {
+                    html += `<div style="color: #f59e0b; margin-top: 10px;">`;
+                    html += `<strong>⚠️ Avertissements :</strong><ul>`;
+                    result.warnings.forEach(w => html += `<li>${w}</li>`);
+                    html += `</ul></div>`;
+                }
+                
+                if (result.analysis && result.analysis.length > 0) {
+                    html += `<div style="margin-top: 10px;"><strong>📊 Analyse :</strong></div>`;
+                    html += '<pre>' + JSON.stringify(result.analysis, null, 2) + '</pre>';
+                }
+                
+                html += '</div>';
+                
+                html += '<pre><strong>Résultat complet :</strong>\n' + JSON.stringify(result, null, 2) + '</pre>';
+                
+                resultDiv.innerHTML = html;
+                console.log('✅ Traduction affichée');
+                
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;">❌ Erreur : ${error.message}</p>`;
+                console.error('❌ Erreur :', error);
+            }
+            
+            console.log('═══════════════════════════════════════');
+        }
+        
+        // ========== TEST MULTIPLE ==========
+        
+        function testMultiple() {
+            const examples = [
+                'bonjour',
+                'merci',
+                'comment allez-vous',
+                'je vais bien',
+                'pain',
+                'eau'
+            ];
+            
+            const resultDiv = document.getElementById('testResult');
+            let html = '<h3>Tests multiples :</h3>';
+            
+            console.log('═══════════════════════════════════════');
+            console.log('🎯 TESTS MULTIPLES');
+            console.log('═══════════════════════════════════════');
+            
+            examples.forEach(text => {
+                try {
+                    const result = translateToKivira(text);
+                    html += `<div class="test ok">
+                        "${text}" → "${result.translation}" (${result.method})
+                    </div>`;
+                    console.log(`✅ "${text}" → "${result.translation}"`);
+                } catch (error) {
+                    html += `<div class="test error">
+                        "${text}" → Erreur : ${error.message}
+                    </div>`;
+                    console.error(`❌ "${text}" → Erreur :`, error);
+                }
+            });
+            
+            resultDiv.innerHTML = html;
+            console.log('═══════════════════════════════════════');
+        }
+        
+        // ========== INSPECTION DES DONNÉES ==========
+        
+        function inspectData() {
+            const dataDiv = document.getElementById('dataStructure');
+            let html = '';
+            
+            console.log('═══════════════════════════════════════');
+            console.log('🔬 INSPECTION DES DONNÉES');
+            console.log('═══════════════════════════════════════');
+            
+            // Chercher toutes les variables globales pertinentes
+            const allVars = Object.keys(window).filter(key => 
+                !key.startsWith('webkit') &&
+                !key.startsWith('chrome') &&
+                typeof window[key] === 'object' &&
+                window[key] !== null &&
+                key.length < 30
+            );
+            
+            console.log('Variables globales détectées :', allVars);
+            
+            // Afficher structure de chaque variable
+            allVars.forEach(varName => {
+                const varValue = window[varName];
+                const keys = Object.keys(varValue);
+                
+                if (keys.length > 0 && keys.length < 1000) {
+                    html += `<div class="test ok">
+                        <strong>${varName}</strong> : ${keys.length} entrées<br>
+                        Premier exemple : ${keys[0]} → ${JSON.stringify(varValue[keys[0]])}
+                    </div>`;
+                    
+                    console.log(`${varName} :`, {
+                        count: keys.length,
+                        firstKey: keys[0],
+                        firstValue: varValue[keys[0]],
+                        sample: keys.slice(0, 5)
+                    });
+                }
+            });
+            
+            dataDiv.innerHTML = html || '<p>Aucune donnée détectée</p>';
+            console.log('═══════════════════════════════════════');
+        }
+        
+        // ========== INITIALISATION ==========
+        
+        window.addEventListener('load', function() {
+            console.log('📄 Page de test chargée');
+            setTimeout(runDiagnostic, 500);
+        });
+        
+        // Permettre Enter dans l'input
+        document.getElementById('testInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                testTranslation();
+            }
+        });
+    </script>
+</body>
+</html>

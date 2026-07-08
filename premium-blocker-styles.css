@@ -1,0 +1,275 @@
+/* ===== STYLES BLOCAGE PREMIUM ===== */
+
+/* Badge Premium sur les catégories */
+.premium-badge-category {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(251, 191, 36, 0.4);
+    z-index: 10;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Compteur du dictionnaire */
+.dictionary-counter {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: #f0f9ff;
+    border: 2px solid #0ea5e9;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 14px;
+    color: #0369a1;
+}
+
+.dictionary-counter.warning {
+    background: #fff5f0;
+    border-color: #ff6b00;
+    color: #c2410c;
+}
+
+.dictionary-counter .counter-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.dictionary-counter .limit-reached {
+    color: #dc2626;
+}
+
+.dictionary-counter a {
+    color: #7c3aed;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.dictionary-counter a:hover {
+    text-decoration: underline;
+}
+
+/* Avertissement du dictionnaire */
+.dictionary-warning {
+    margin-bottom: 16px;
+    padding: 16px;
+    background: linear-gradient(135deg, #fff5f0 0%, #ffe4d6 100%);
+    border: 2px solid #ff6b00;
+    border-radius: 12px;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dictionary-warning .warning-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 14px;
+    color: #c2410c;
+}
+
+.dictionary-warning strong {
+    color: #dc2626;
+}
+
+.upgrade-btn-small {
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.upgrade-btn-small:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+}
+
+/* Modal de limite atteinte */
+.limit-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+}
+
+.limit-modal-content {
+    position: relative;
+    background: white;
+    border-radius: 20px;
+    padding: 32px 24px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: scaleIn 0.3s ease;
+    z-index: 10001;
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.limit-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+}
+
+.limit-modal-content h2 {
+    font-size: 24px;
+    color: #1f2937;
+    margin-bottom: 12px;
+}
+
+.limit-modal-content p {
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.limit-modal-content strong {
+    color: #dc2626;
+}
+
+.premium-features {
+    background: #f9fafb;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.premium-features .feature {
+    padding: 8px 0;
+    color: #374151;
+    font-size: 14px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.premium-features .feature:last-child {
+    border-bottom: none;
+}
+
+.modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #6b7280;
+    border: 2px solid #e5e7eb;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+}
+
+/* Catégorie bloquée - effet visuel */
+.category-card[data-category="famille"],
+.category-card[data-category="cuisine"] {
+    position: relative;
+    opacity: 0.85;
+}
+
+.category-card[data-category="famille"]:not(.premium-unlocked)::after,
+.category-card[data-category="cuisine"]:not(.premium-unlocked)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.05) 0%, rgba(109, 40, 217, 0.05) 100%);
+    border-radius: 16px;
+    pointer-events: none;
+}
+
+/* Quand premium, retirer l'effet */
+.category-card.premium-unlocked::after {
+    display: none;
+}
+
+.category-card.premium-unlocked {
+    opacity: 1;
+}

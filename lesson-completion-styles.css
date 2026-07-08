@@ -1,0 +1,97 @@
+/* ===== STYLES POUR LES LEÇONS TERMINÉES ===== */
+
+/* Leçon marquée comme terminée */
+.lesson-item.lesson-completed {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.15) 100%);
+    border-left: 4px solid #10b981;
+    position: relative;
+}
+
+.lesson-item.lesson-completed:hover {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.2) 100%);
+}
+
+/* Coche verte */
+.lesson-checkmark {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    font-size: 28px;
+    animation: checkmarkPop 0.5s ease;
+    z-index: 10;
+}
+
+/* Animation d'apparition de la coche */
+@keyframes checkmarkPop {
+    0% {
+        transform: translateY(-50%) scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(-50%) scale(1.3);
+    }
+    100% {
+        transform: translateY(-50%) scale(1);
+        opacity: 1;
+    }
+}
+
+/* S'assurer que lesson-item a position relative */
+.lesson-item {
+    position: relative;
+}
+
+/* Statut de la leçon terminée */
+.lesson-item.lesson-completed .lesson-status {
+    color: #10b981 !important;
+    font-weight: 600;
+}
+
+/* Animation de coche qui pulse */
+.lesson-checkmark {
+    animation: checkmarkPop 0.5s ease, checkmarkPulse 2s ease-in-out 0.5s infinite;
+}
+
+@keyframes checkmarkPulse {
+    0%, 100% {
+        transform: translateY(-50%) scale(1);
+    }
+    50% {
+        transform: translateY(-50%) scale(1.1);
+    }
+}
+
+/* Overlay de félicitations avec message de coche */
+.success-overlay .lesson-checked-message {
+    color: #10b981;
+    font-weight: 600;
+    margin-top: 12px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Variante pour mobile */
+@media (max-width: 768px) {
+    .lesson-checkmark {
+        font-size: 24px;
+        right: 15px;
+    }
+}
+
+/* Badge "Terminée" dans le statut */
+.lesson-completed-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 8px;
+}

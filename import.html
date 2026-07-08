@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import Massif - Dictionnaire</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .step {
+            background: #f9fafb;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .step h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+        
+        .upload-zone {
+            border: 3px dashed #667eea;
+            padding: 40px;
+            text-align: center;
+            border-radius: 12px;
+            background: #f9fafb;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .upload-zone:hover {
+            border-color: #5568d3;
+            background: #f3f4f6;
+        }
+        
+        .upload-zone.dragover {
+            border-color: #10b981;
+            background: #d1fae5;
+        }
+        
+        .upload-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        input[type="file"] {
+            display: none;
+        }
+        
+        .message {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+        
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid #10b981;
+        }
+        
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid #ef4444;
+        }
+        
+        .info {
+            background: #dbeafe;
+            color: #1e40af;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .progress {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card h4 {
+            font-size: 32px;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .code {
+            background: #1f2937;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+        
+        .example-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+        
+        .example-table th,
+        .example-table td {
+            padding: 8px;
+            border: 1px solid #e5e7eb;
+            text-align: left;
+        }
+        
+        .example-table th {
+            background: #f3f4f6;
+            font-weight: 600;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📥 Import Massif de Mots</h1>
+        <p class="subtitle">Importez des centaines de mots en quelques secondes</p>
+        
+        <!-- ÉTAPE 1 -->
+        <div class="step">
+            <h3>📋 ÉTAPE 1 : Télécharger le template</h3>
+            <p style="margin-bottom: 15px;">Téléchargez le fichier CSV exemple pour voir le format attendu</p>
+            <a href="../api/import_api.php?action=download_template" class="btn btn-primary" download>
+                ⬇️ Télécharger template.csv
+            </a>
+        </div>
+        
+        <!-- ÉTAPE 2 -->
+        <div class="step">
+            <h3>✏️ ÉTAPE 2 : Remplir le fichier</h3>
+            <p style="margin-bottom: 15px;">Ouvrez le fichier dans Excel ou Google Sheets et remplissez-le</p>
+            
+            <div class="info" style="margin-top: 15px;">
+                <strong>📊 Format attendu :</strong>
+                <table class="example-table">
+                    <thead>
+                        <tr>
+                            <th>kivira</th>
+                            <th>french</th>
+                            <th>english</th>
+                            <th>swahili</th>
+                            <th>category</th>
+                            <th>type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Mwaramutse</td>
+                            <td>Bonjour</td>
+                            <td>Good morning</td>
+                            <td>Habari za asubuhi</td>
+                            <td>salutations</td>
+                            <td>expression</td>
+                        </tr>
+                        <tr>
+                            <td>Murakoze</td>
+                            <td>Merci</td>
+                            <td>Thank you</td>
+                            <td>Asante</td>
+                            <td>salutations</td>
+                            <td>expression</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="info" style="margin-top: 15px;">
+                <strong>✅ Colonnes REQUISES :</strong> kivira, french, english, swahili<br>
+                <strong>📝 Colonnes OPTIONNELLES :</strong> category, type, example_kivira, example_translation_fr, example_translation_en, example_translation_sw
+            </div>
+        </div>
+        
+        <!-- ÉTAPE 3 -->
+        <div class="step">
+            <h3>📤 ÉTAPE 3 : Importer le fichier</h3>
+            
+            <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+                <div class="upload-icon">📁</div>
+                <h4 style="margin-bottom: 10px;">Cliquez pour choisir un fichier</h4>
+                <p style="color: #666;">ou glissez-déposez votre fichier CSV ici</p>
+                <p style="color: #999; font-size: 14px; margin-top: 10px;">Formats acceptés : .csv</p>
+            </div>
+            
+            <input type="file" id="fileInput" accept=".csv" onchange="handleFile(this.files[0])">
+            
+            <div id="progressContainer" style="display: none;">
+                <div class="progress">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <p style="text-align: center; color: #666;" id="progressText">Import en cours...</p>
+            </div>
+            
+            <div id="messageContainer"></div>
+            
+            <div id="statsContainer"></div>
+        </div>
+        
+        <a href="admin_dictionary.html" class="back-link">← Retour au dashboard</a>
+    </div>
+    
+    <script>
+        const uploadZone = document.getElementById('uploadZone');
+        const fileInput = document.getElementById('fileInput');
+        
+        // Drag & Drop
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('dragover');
+        });
+        
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('dragover');
+        });
+        
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+        
+        // Import du fichier
+        async function handleFile(file) {
+            if (!file) return;
+            
+            // Vérifier l'extension
+            if (!file.name.endsWith('.csv')) {
+                showMessage('❌ Seuls les fichiers CSV sont acceptés', 'error');
+                return;
+            }
+            
+            // Afficher la progression
+            document.getElementById('progressContainer').style.display = 'block';
+            document.getElementById('messageContainer').innerHTML = '';
+            document.getElementById('statsContainer').innerHTML = '';
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            try {
+                const response = await fetch('../api/import_api.php?action=import_csv', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                // Cacher la progression
+                document.getElementById('progressContainer').style.display = 'none';
+                
+                if (result.success) {
+                    showMessage(`✅ Import terminé avec succès !`, 'success');
+                    
+                    // Afficher les stats
+                    const statsHTML = `
+                        <div class="stats">
+                            <div class="stat-card">
+                                <h4>${result.imported}</h4>
+                                <p>✅ Importés</p>
+                            </div>
+                            <div class="stat-card">
+                                <h4>${result.errors}</h4>
+                                <p>⚠️ Erreurs</p>
+                            </div>
+                            <div class="stat-card">
+                                <h4>${result.total}</h4>
+                                <p>📊 Total traité</p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    document.getElementById('statsContainer').innerHTML = statsHTML;
+                    
+                    // Afficher les détails des erreurs
+                    if (result.errors > 0 && result.error_details) {
+                        let errorHTML = '<div class="info" style="margin-top: 20px;"><strong>⚠️ Détails des erreurs :</strong><ul style="margin-top: 10px;">';
+                        result.error_details.forEach(err => {
+                            errorHTML += `<li style="margin: 5px 0;">${err}</li>`;
+                        });
+                        errorHTML += '</ul></div>';
+                        document.getElementById('messageContainer').innerHTML += errorHTML;
+                    }
+                    
+                } else {
+                    showMessage(`❌ Erreur : ${result.error}`, 'error');
+                }
+                
+            } catch (error) {
+                document.getElementById('progressContainer').style.display = 'none';
+                showMessage(`❌ Erreur de connexion : ${error.message}`, 'error');
+            }
+        }
+        
+        function showMessage(message, type) {
+            const container = document.getElementById('messageContainer');
+            container.innerHTML = `<div class="message ${type}">${message}</div>`;
+        }
+        
+        // Animation de la barre de progression
+        function animateProgress() {
+            const bar = document.getElementById('progressBar');
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 90) {
+                    clearInterval(interval);
+                } else {
+                    width += 10;
+                    bar.style.width = width + '%';
+                }
+            }, 100);
+        }
+    </script>
+</body>
+</html>
