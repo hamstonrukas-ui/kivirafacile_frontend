@@ -3239,7 +3239,8 @@
         <ul class="sidebar-menu">
             <li data-i18n="myProfile" onclick="openProfile()">👤 Mon Profil</li>
             <li id="settingsMenuItem" data-i18n="settings">⚙️ Paramètres</li>
-            <li data-i18n="myProgress" onclick="openProgress()">📊 Mes Progrès</li>
+            <li data-i18n="contactUs" onclick="openContact()">📧 Contactez-nous</li>
+            
             <li data-i18n="share" onclick="openShare()">📤 Partager</li>
             <li data-i18n="help" onclick="openHelp()">❓ Aide</li>
             <li data-i18n="about" onclick="openAbout()">ℹ️ À propos</li>
@@ -4846,6 +4847,17 @@
     function closeAbout() {
         document.getElementById('aboutModal').classList.remove('open');
     }
+        // ====== Contact ======
+function openContact() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('overlay').classList.remove('show');
+    document.getElementById('contactModal').classList.add('open');
+}
+
+function closeContact() {
+    document.getElementById('contactModal').classList.remove('open');
+        }
+    
 
     // FAQ toggle
     function toggleFaq(element) {
@@ -5413,6 +5425,30 @@ function openProgress() {
 
     </div>
 </div>
+    <div class="menu-modal" id="contactModal">
+    <div class="modal-header">
+        <h2>📧 Contactez-nous</h2>
+        <button class="modal-close-btn" onclick="closeContact()">×</button>
+    </div>
+    <div class="modal-body">
+        <p>Pour vos : <strong>soutiens et suggestions</strong></p>
+        <p>Pour les personnes souhaitant s'abonner et se trouvant à l'étranger</p>
+        
+        <hr>
+
+        <div class="whatsapp-message">
+            Contactez-nous en cliquant sur ce bouton 👇
+        </div>
+
+        <a href="https://wa.me/243855841999?text=Bonjour%20je%20viens%20de%20votre%20site."
+           class="whatsapp-btn"
+           target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+            <span>WhatsApp</span>
+        </a>
+    </div>
+    </div>
+    
 <!-- ==================== MODAL AUTH ==================== -->
 <div class="auth-overlay hidden" id="authOverlay">
     <div class="auth-modal">
