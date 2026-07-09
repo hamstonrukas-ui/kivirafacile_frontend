@@ -7,8 +7,9 @@
 // ⭐ IMPORTANT : DÉFINIR L'URL DE L'API EN PREMIER
 
 
-// APRÈS
-const API_URL = 'https://kivirafacile.hstn.me/api/library_api.php';
+// Remplacez l'ancienne URL par celle-ci :
+const API_URL = '/api/proxy-categories'; 
+
 // État global
 let libraryInitialized = false;
 let currentCategory = null;
