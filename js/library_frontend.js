@@ -8,7 +8,7 @@
 
 
 // APRÈS
-const API_URL = 'http://kivirafacile.hstn.me/api/library_api.php';
+const API_URL = 'https://kivirafacile.hstn.me/api/library_api.php';
 // État global
 let libraryInitialized = false;
 let currentCategory = null;
