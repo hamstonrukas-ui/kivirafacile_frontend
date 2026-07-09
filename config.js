@@ -12,7 +12,7 @@ const CONFIG = {
     TRANSLATE_URL: 'https://kivira-translate-api.onrender.com',
 
     // Backend PHP : Bibliothèque + Dictionnaire
-    PHP_URL: 'http://kivirafacile.hstn.me',
+    PHP_URL: 'https://kivirafacile.hstn.me',
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     // CLÉS DE STOCKAGE
