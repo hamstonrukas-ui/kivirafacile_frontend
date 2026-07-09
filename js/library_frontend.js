@@ -127,40 +127,69 @@ observer.observe(document.documentElement, {
 // AFFICHER LES CATÉGORIES
 // ============================================
 
-// Remplacez votre fonction showCategories actuelle par celle-ci
 async function showCategories() {
     console.log('📚 Affichage des catégories...');
     
     try {
+        // Récupérer la langue
         getCurrentLanguage();
         
-        // --- MODIFICATION ICI : Ajout d'en-têtes pour paraître plus "humain" ---
-        const response = await fetch(API_URL + '?action=categories', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-                'X-Requested-With': 'XMLHttpRequest' // Indique que c'est une requête AJAX
-            }
-        });
+        // Appeler l'API
+        console.log('🔗 URL API:', API_URL + '?action=categories');
+        const response = await fetch(API_URL + '?action=categories');
         
+        // Vérifier le statut HTTP
         if (!response.ok) {
             throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
         }
         
+        // Lire la réponse comme texte d'abord
         const text = await response.text();
+        console.log('📄 Réponse brute:', text.substring(0, 200) + '...');
         
-        // Si le texte commence par "<", c'est du HTML de protection de l'hébergeur
-        if (text.trim().startsWith('<')) {
-            console.error('❌ Blocage détecté ! Le serveur a renvoyé du HTML.');
-            throw new Error('Le serveur bloque la connexion (protection anti-bot).');
+        // Parser le JSON
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch (e) {
+            console.error('❌ Erreur de parsing JSON:', e);
+            console.error('📄 Réponse complète:', text);
+            throw new Error('La réponse n\'est pas du JSON valide. Vérifiez qu\'il n\'y a pas d\'erreurs PHP dans l\'API.');
         }
         
-        const data = JSON.parse(text);
-        // ... (le reste du code original pour afficher les catégories)
+        console.log('📦 Données parsées:', data);
+        
+        // Vérifier que la réponse contient success
+        if (!data.success) {
+            throw new Error(data.error || 'L\'API a retourné success: false');
+        }
+        
+        // Vérifier que categories existe
+        if (!data.categories) {
+            console.error('❌ Pas de champ "categories" dans:', data);
+            throw new Error('La réponse ne contient pas de champ "categories"');
+        }
+        
+        // Vérifier que categories est un tableau
+        if (!Array.isArray(data.categories)) {
+            console.error('❌ categories n\'est pas un tableau:', typeof data.categories);
+            throw new Error(`categories n'est pas un tableau (type: ${typeof data.categories})`);
+        }
+        
+        // Vérifier que le tableau n'est pas vide
+        if (data.categories.length === 0) {
+            throw new Error('Le tableau de catégories est vide. Exécutez : python3 scripts/create_library.py');
+        }
+        
+        console.log(`✅ ${data.categories.length} catégories chargées`);
+        
+        // Afficher les catégories
+        displayCategories(data.categories);
         
     } catch (error) {
         console.error('🔴 Erreur chargement catégories:', error);
+        
+        // Afficher un message d'erreur à l'utilisateur
         displayErrorMessage(error.message);
     }
 }
