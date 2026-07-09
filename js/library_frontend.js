@@ -5,8 +5,10 @@
 // ============================================
 
 // ⭐ IMPORTANT : DÉFINIR L'URL DE L'API EN PREMIER
-const API_URL = '../api/library_api.php'; // ← MODIFIER SELON VOTRE STRUCTURE
 
+
+// APRÈS
+const API_URL = 'http://kivirafacile.hstn.me/api/library_api.php';
 // État global
 let libraryInitialized = false;
 let currentCategory = null;
