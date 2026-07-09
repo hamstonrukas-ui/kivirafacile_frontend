@@ -7,8 +7,8 @@
 // ⭐ IMPORTANT : DÉFINIR L'URL DE L'API EN PREMIER
 
 
-// Remplacez l'ancienne URL par celle-ci :
-const API_URL = '/api/proxy-categories'; 
+// APRÈS
+const API_URL = 'https://kivirafacile-api.onrender.com/api/library';
 
 // État global
 let libraryInitialized = false;
