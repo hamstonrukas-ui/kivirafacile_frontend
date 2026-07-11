@@ -3196,6 +3196,78 @@
     width: 28px;
     height: 28px;
 }
+        /* ── Mur des Sponsors dans le sidebar ── */
+.sidebar-sponsors-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 24px;
+    cursor: pointer;
+    color: #7c3aed;
+    font-weight: 700;
+    background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+    border-left: 4px solid #7c3aed;
+    transition: background 0.2s;
+}
+.sidebar-sponsors-link:hover {
+    background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+}
+.sidebar-sponsors-link .badge-new {
+    background: #7c3aed;
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 8px;
+    margin-left: auto;
+}
+
+/* ── Page Mur des Sponsors ── */
+#sponsors-wall {
+    padding: 20px;
+}
+.sponsors-header {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #7c3aed, #6d28d9);
+    border-radius: 16px;
+    color: white;
+    margin-bottom: 24px;
+}
+.sponsors-header h2 { font-size: 26px; margin-bottom: 8px; }
+.sponsors-header p { opacity: 0.85; font-size: 14px; }
+.sponsors-section { margin-bottom: 28px; }
+.sponsors-section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e5e7eb;
+}
+.sponsors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+}
+.sponsor-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.sponsor-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+.sponsor-card.diamant { border-top: 3px solid #60a5fa; }
+.sponsor-card.or { border-top: 3px solid #f59e0b; }
+.sponsor-card.argent { border-top: 3px solid #9ca3af; }
+.sponsor-card .sponsor-icon { font-size: 32px; margin-bottom: 8px; }
+.sponsor-card .sponsor-name { font-weight: 700; color: #1f2937; font-size: 14px; }
+.sponsor-card .sponsor-msg { font-size: 11px; color: #6b7280; margin-top: 4px; }
+.sponsors-empty { text-align: center; padding: 30px; color: #9ca3af; }
 
     </style>
 </head>
@@ -3244,7 +3316,10 @@
             <li data-i18n="share" onclick="openShare()">📤 Partager</li>
             <li data-i18n="help" onclick="openHelp()">❓ Aide</li>
             <li data-i18n="about" onclick="openAbout()">ℹ️ À propos</li>
-            <li><a href="sponsors.html">💎 Mur des Sponsors</a></li>
+            <li class="sidebar-sponsors-link" onclick="openSponsorsWall()">
+    💎 Mur des Sponsors
+    <span class="badge-new">NOUVEAU</span>
+            </li>
         </ul>
     </nav>
 
@@ -3655,6 +3730,51 @@
 
             <div id="searchResults" style="display: none;"></div>
         </div>
+        <!-- ═══════════════════════════════════════════════════ -->
+<!-- PAGE : MUR DES SPONSORS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="page" id="sponsors-wall">
+    <div class="sponsors-header">
+        <div style="font-size:48px;margin-bottom:12px">🏆</div>
+        <h2>Mur des Sponsors</h2>
+        <p>Ces personnes soutiennent le projet KiviraFacile<br>et la préservation de la langue Kivira</p>
+    </div>
+
+    <!-- Diamant -->
+    <div class="sponsors-section" id="section-diamant">
+        <div class="sponsors-section-title">
+            <span>💎</span> Sponsors Diamant <span style="color:#9ca3af;font-size:13px;font-weight:400">($50+)</span>
+        </div>
+        <div class="sponsors-grid" id="grid-diamant">
+            <div class="sponsors-empty">Chargement...</div>
+        </div>
+    </div>
+
+    <!-- Or -->
+    <div class="sponsors-section" id="section-or">
+        <div class="sponsors-section-title">
+            <span>🥇</span> Sponsors Or <span style="color:#9ca3af;font-size:13px;font-weight:400">($20)</span>
+        </div>
+        <div class="sponsors-grid" id="grid-or">
+            <div class="sponsors-empty">Chargement...</div>
+        </div>
+    </div>
+
+    <!-- Argent -->
+    <div class="sponsors-section" id="section-argent">
+        <div class="sponsors-section-title">
+            <span>🥈</span> Sponsors Argent <span style="color:#9ca3af;font-size:13px;font-weight:400">($10)</span>
+        </div>
+        <div class="sponsors-grid" id="grid-argent">
+            <div class="sponsors-empty">Chargement...</div>
+        </div>
+    </div>
+
+    <div style="text-align:center;padding:20px;color:#9ca3af;font-size:13px">
+        <p>Vous souhaitez soutenir KiviraFacile ?</p>
+        <p style="margin-top:4px;font-weight:600;color:#7c3aed">Contactez-nous pour devenir sponsor</p>
+    </div>
+</div>
 
         <!-- Traduction -->
         <div class="page" id="translate">
@@ -6362,6 +6482,59 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+    // ── MUR DES SPONSORS ──
+function openSponsorsWall() {
+    // Fermer le sidebar
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('overlay').classList.remove('active');
+
+    // Afficher la page sponsors
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('sponsors-wall').classList.add('active');
+
+    // Désélectionner la bottom nav
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+    // Charger les sponsors
+    loadSponsorsWall();
+}
+
+async function loadSponsorsWall() {
+    try {
+        const response = await fetch('https://kivirafacile-api.onrender.com/api/sponsors');
+        const data = await response.json();
+        const sponsors = data.sponsors || [];
+
+        const diamant = sponsors.filter(s => s.tier === 'diamant');
+        const or = sponsors.filter(s => s.tier === 'or');
+        const argent = sponsors.filter(s => s.tier === 'argent');
+
+        renderSponsorsGrid('grid-diamant', diamant, 'diamant');
+        renderSponsorsGrid('grid-or', or, 'or');
+        renderSponsorsGrid('grid-argent', argent, 'argent');
+
+    } catch (err) {
+        console.error('Erreur chargement sponsors:', err);
+    }
+}
+
+function renderSponsorsGrid(gridId, sponsors, tier) {
+    const grid = document.getElementById(gridId);
+    const icons = { diamant: '💎', or: '🥇', argent: '🥈' };
+
+    if (!sponsors.length) {
+        grid.innerHTML = `<div class="sponsors-empty">Aucun sponsor ${tier} pour l'instant</div>`;
+        return;
+    }
+
+    grid.innerHTML = sponsors.map(s => `
+        <div class="sponsor-card ${tier}">
+            <div class="sponsor-icon">${icons[tier]}</div>
+            <div class="sponsor-name">${s.name}</div>
+            ${s.message ? `<div class="sponsor-msg">"${s.message}"</div>` : ''}
+        </div>
+    `).join('');
+    }
 </script>
 
 </body>
