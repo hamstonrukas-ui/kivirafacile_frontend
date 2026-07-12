@@ -25,7 +25,7 @@ function injectTranslationPaymentModal() {
                         <p style="font-weight:700;color:#0891b2;margin-bottom:8px">✨ Ce que vous obtenez :</p>
                         <ul style="color:#374151;font-size:14px;padding-left:16px;line-height:1.8">
                             <li>🔓 Traductions illimitées (jusqu'à 20/jour)</li>
-                            <li>🤖 IA KiviraAI (Claude Haiku)</li>
+                            <li>🤖 Explorer la performance du moteur de traduction</li>
                             <li>📚 Lexique de 8965 mots Kivira</li>
                             <li>💾 Historique de vos traductions</li>
                         </ul>
@@ -34,7 +34,7 @@ function injectTranslationPaymentModal() {
                     <div style="background:#fef9c3;border-radius:12px;padding:14px;margin-bottom:16px">
                         <p style="font-size:13px;color:#854d0e">
                             ⚠️ Abonnement <strong>séparé</strong> du Premium Général.
-                            Vous pouvez avoir les deux ou seulement celui-ci.
+                            Vous pouvez avoir les deux ou seulement celui-ci qui est spécial pour avoir accès au moteur de traduction de Kivira.
                         </p>
                     </div>
 
