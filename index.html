@@ -3793,8 +3793,13 @@
                     <textarea 
                         id="translatorInput" 
                         class="translator-textarea"
+                        maxlength="50"
                         placeholder="Ex: Je vais à l'école, Bonjour comment allez-vous, Mon ami est intelligent..."
                         rows="5"
+    oninput="updateTranslationCounter(this)">
+<div id="translation-counter" style="text-align:right;font-size:12px;color:#9ca3af;margin-top:4px">
+    0 / 50
+                    </div>
                     ></textarea>
                     <div class="input-actions">
                         <button class="clear-input-btn" id="clearTranslatorInput">
@@ -4843,88 +4848,93 @@ if (translationPremiumPages.includes(pageId)) {
         });
 
         // Fonction principale de traduction
-        function performTranslation() {
-            const text = translatorInput.value.trim();
-            if (!text) return;
+        async function performTranslation() {
+    const text = translatorInput.value.trim();
+    if (!text) return;
 
-            // Cacher les suggestions
-            suggestionSection.style.display = 'none';
-
-            // Effectuer la traduction
-            const result = translateToKivira(text);
-             // 🆕 AJOUTER CETTE LIGNE POUR TRACKER LA TRADUCTION
-    if (typeof trackTranslation === 'function') {
-        trackTranslation(text, result.translation, 'fr-to-kivira');
+    // Vérification 50 caractères (double sécurité côté frontend)
+    if (text.length > 50) {
+        alert('⚠️ Le texte ne doit pas dépasser 50 caractères.');
+        return;
     }
-    // 🆕 AJOUTER CETTE LIGNE - Capturer la traduction pour l'IA
-    if (typeof captureTranslation === 'function') {
-        captureTranslation(text, result.translation, 'fr-to-kivira', {
-            method: 'manual_translator',
-            confidence: result.confidence || 1
+
+    // UI : état chargement
+    suggestionSection.style.display = 'none';
+    translateBtn.disabled = true;
+    translatorOutput.style.display = 'block';
+    translationResult.textContent = '⏳ Traduction en cours...';
+    translationMethod.textContent = '';
+
+    try {
+        // ── Appel au backend KiviraAI (Claude Haiku) ──
+        const token = localStorage.getItem(CONFIG.STORAGE_KEYS.TOKEN);
+
+        const response = await fetch(`${CONFIG.TRANSLATE_URL}/api/translate`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ text })
         });
+
+        const data = await response.json();
+
+        if (response.status === 402) {
+            // Quota gratuit épuisé
+            translatorOutput.style.display = 'none';
+            showTranslationPaymentModal();
+            return;
+        }
+
+        if (response.status === 429) {
+            // Limite quotidienne atteinte (premium)
+            translationResult.textContent = '⚠️ Limite quotidienne atteinte (20/jour). Réessayez demain.';
+            translationMethod.textContent = '';
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Erreur de traduction');
+        }
+
+        // ── Afficher le résultat ──
+        translationResult.textContent = data.translation;
+
+        // Méthode
+        translationMethod.textContent = data.fromCache
+            ? '⚡ Traduction instantanée (cache)'
+            : '🤖 KiviraAI (Claude Haiku)';
+        translationMethod.className = 'translation-method expression';
+
+        // Quota restant
+        if (data.quotaRemaining !== null && data.quotaRemaining !== undefined) {
+            translationMethod.textContent += ` · ${data.quotaRemaining} traduction(s) gratuite(s) restante(s)`;
+        }
+        if (data.dailyRemaining !== null && data.dailyRemaining !== undefined) {
+            translationMethod.textContent += ` · ${data.dailyRemaining}/jour restantes`;
+        }
+
+        // Masquer analyse (pas disponible avec IA)
+        toggleAnalysisBtn.style.display = 'none';
+        warningsSection.style.display = 'none';
+
+        // Tracker la traduction
+        if (typeof trackTranslation === 'function') {
+            trackTranslation(text, data.translation, 'fr-to-kivira');
+        }
+
+        // Scroll vers résultat
+        translatorOutput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    } catch (error) {
+        console.error('Erreur traduction:', error);
+        translationResult.textContent = '❌ Erreur : ' + error.message;
+    } finally {
+        translateBtn.disabled = text.trim().length === 0;
     }
-
-            // Afficher le résultat
-            translationResult.textContent = result.translation;
-
-            // Afficher la méthode
-            translationMethod.textContent = result.method === 'expression' 
-                ? '✨ Expression courante' 
-                : '🔧 Traduction mot-à-mot';
-            translationMethod.className = `translation-method ${result.method}`;
-
-            // Afficher l'analyse si mot-à-mot
-            if (result.method === 'word-by-word' && result.analysis.length > 0) {
-                displayAnalysis(result.analysis);
-                toggleAnalysisBtn.style.display = 'block';
-            } else {
-                toggleAnalysisBtn.style.display = 'none';
-            }
-
-            // Afficher les avertissements
-            if (result.warnings && result.warnings.length > 0) {
-                warningsSection.style.display = 'block';
-                warningsList.innerHTML = result.warnings.map(w => `<li>${w}</li>`).join('');
-            } else {
-                warningsSection.style.display = 'none';
-            }
-
-            // Afficher la section output
-            translatorOutput.style.display = 'block';
-
-            // Scroll vers le résultat
-            translatorOutput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
-
-        // Afficher l'analyse détaillée
-        function displayAnalysis(analysis) {
-            const typeLabels = {
-                'pronoun-subject': 'Pronom sujet',
-                'pronoun-possessive': 'Pronom possessif',
-                'verb': 'Verbe',
-                'noun': 'Nom',
-                'adjective': 'Adjectif',
-                'adverb': 'Adverbe',
-                'preposition': 'Préposition',
-                'conjunction': 'Conjonction',
-                'number': 'Nombre',
-                'unknown': 'Inconnu'
-            };
-
-            analysisContent.innerHTML = analysis.map(word => `
-                <div class="analysis-word">
-                    <div class="analysis-word-original">${word.original}</div>
-                    <div class="analysis-word-translation">→ ${word.translation || '?'}</div>
-                    <span class="analysis-word-type">${typeLabels[word.type] || word.type}</span>
-                    ${word.grammarInfo && Object.keys(word.grammarInfo).length > 0 ? 
-                        `<div style="font-size: 12px; color: #999; margin-top: 4px;">
-                            ${JSON.stringify(word.grammarInfo, null, 2).replace(/[{}"]/g, '').trim()}
-                        </div>` 
-                        : ''}
-                </div>
-            `).join('');
-           
-        }
+        
          // Charger la langue au démarrage
             if (typeof refreshDictionary === 'function') {
                 refreshDictionary();
@@ -6543,6 +6553,14 @@ function renderSponsorsGrid(gridId, sponsors, tier) {
             ${s.message ? `<div class="sponsor-msg">"${s.message}"</div>` : ''}
         </div>
     `).join('');
+    }
+    function updateTranslationCounter(input) {
+    const count = input.value.length;
+    const counter = document.getElementById('translation-counter');
+    if (counter) {
+        counter.textContent = count + ' / 50';
+        counter.style.color = count >= 45 ? '#ef4444' : '#9ca3af';
+    }
     }
 </script>
 
