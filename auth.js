@@ -352,7 +352,7 @@ function showBlockedAccountMessage() {
                             📧 Email : support@kivirafacile.com
                         </p>
                         <p style="color: #6b7280; font-size: 14px;">
-                            📱 WhatsApp : +243 99 XXX XXXX
+                            📱 WhatsApp : +243 85 584 1999
                         </p>
                     </div>
                     
