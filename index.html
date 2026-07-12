@@ -3784,6 +3784,9 @@
             </div>
 
             <div class="translator-container">
+                <div id="translation-counter" style="text-align:right;font-size:12px;color:#9ca3af;margin-top:4px">
+    0 / 50
+                </div>
                 <!-- Zone de saisie -->
                 <div class="input-section">
                     <label class="input-label">
@@ -3797,9 +3800,7 @@
                         placeholder="Ex: Je vais à l'école, Bonjour comment allez-vous, Mon ami est intelligent..."
                         rows="5"
     oninput="updateTranslationCounter(this)">
-<div id="translation-counter" style="text-align:right;font-size:12px;color:#9ca3af;margin-top:4px">
-    0 / 50
-                    </div>
+
                     ></textarea>
                     <div class="input-actions">
                         <button class="clear-input-btn" id="clearTranslatorInput">
