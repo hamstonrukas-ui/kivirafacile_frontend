@@ -3935,17 +3935,24 @@
                 const pageId = item.getAttribute('data-page');
                 
                 // ✅ NOUVEAU : Vérifier si la page nécessite premium
-                const premiumPages = ['dictionary', 'translate'];
                 
-                if (premiumPages.includes(pageId)) {
-                    // Vérifier si l'utilisateur est premium
-                    if (!currentUser || !currentUser.isPremium) {
-                        // Pas premium → Afficher le modal de paiement
-                        showPaymentModal();
-                        return; // Arrêter ici, ne pas changer de page
-                    }
-                }
-                
+                // Vérification premium selon la page
+const generalPremiumPages = ['dictionary']; // 1000 FC
+const translationPremiumPages = ['translate']; // 2000 FC
+
+if (generalPremiumPages.includes(pageId)) {
+    if (!currentUser || !currentUser.isPremium) {
+        showPaymentModal(); // Modal 1000 FC
+        return;
+    }
+}
+
+if (translationPremiumPages.includes(pageId)) {
+    if (!currentUser || !currentUser.isTranslationPremium) {
+        showTranslationPaymentModal(); // Modal 2000 FC
+        return;
+    }
+}
                 // ✅ Si on arrive ici, c'est OK (soit bibliothèque, soit premium)
                 // Update active nav item
                 navItems.forEach(nav => nav.classList.remove('active'));
