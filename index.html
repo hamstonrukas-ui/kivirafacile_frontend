@@ -4852,6 +4852,24 @@ if (translationPremiumPages.includes(pageId)) {
         async function performTranslation() {
     const text = translatorInput.value.trim();
     if (!text) return;
+            
+
+    // ── VÉRIFICATION PREMIUM TRADUCTION EN PREMIER ──
+    const isTranslationPremium = typeof currentUser !== 'undefined'
+        && currentUser
+        && currentUser.isTranslationPremium;
+
+    if (!isTranslationPremium) {
+        if (typeof showTranslationPaymentModal === 'function') {
+            showTranslationPaymentModal();
+        }
+        return; // Stopper ici, ne pas aller plus loin
+    }
+
+    // Vérification 50 caractères
+    
+
+    // ... reste du code identique
 
     // Vérification 50 caractères (double sécurité côté frontend)
     if (text.length > 50) {
