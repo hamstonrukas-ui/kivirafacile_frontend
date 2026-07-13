@@ -17,40 +17,7 @@ function initPremiumBlockerFinal() {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     // LEÇONS — vérification isPremium AU MOMENT DU CLIC
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    if (typeof showLessonList === 'function') {
-        originalShowLessonList = showLessonList;
-
-        window.showLessonList = function(category) {
-            console.log('🔍 Tentative accès leçon:', category);
-
-            // Catégorie gratuite → accès direct
-            if (FREE_CATEGORIES.includes(category)) {
-                console.log('✅ Catégorie gratuite');
-                return originalShowLessonList(category);
-            }
-
-            // ← Vérifie isPremium ICI, au moment du clic
-            const isPremium = typeof currentUser !== 'undefined'
-                && currentUser
-                && currentUser.isPremium;
-
-            if (isPremium) {
-                console.log('✅ User premium → accès leçon autorisé');
-                return originalShowLessonList(category);
-            }
-
-            console.log('🔒 Leçon bloquée → modal 1000 FC');
-            if (typeof showPaymentModal === 'function') {
-                showPaymentModal();
-            } else {
-                alert('🔒 Cette catégorie nécessite un abonnement Premium (1000 FC).');
-            }
-        };
-
-        console.log('✅ showLessonList interceptée (vérification dynamique)');
-    } else {
-        console.warn('⚠️ showLessonList non trouvée au moment de l\'init');
-    }
+    
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     // BADGES VISUELS sur les catégories
