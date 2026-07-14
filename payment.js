@@ -299,10 +299,18 @@ async function submitTransaction(event) {
         
         // Mettre à jour l'utilisateur dans la session
         if (currentUser) {
-            currentUser.isPremium = true;
-            currentUser.premiumExpiresAt = data.premium.expiresAt;
-            localStorage.setItem(CONFIG.STORAGE_KEYS.USER, JSON.stringify(currentUser));
-            updateUserInterface(currentUser);
+    currentUser.isPremium = true;
+    currentUser.premiumExpiresAt = data.premium.expiresAt;
+    localStorage.setItem(CONFIG.STORAGE_KEYS.USER, JSON.stringify(currentUser));
+    updateUserInterface(currentUser);
+
+    // Réinitialiser le blocker avec le nouveau statut premium
+    if (typeof resetPremiumBlocker === 'function') {
+        setTimeout(resetPremiumBlocker, 300);
+    }
+
+    // Supprimer les badges premium sur les catégories
+    document.querySelectorAll('.premium-badge-lesson').forEach(b => b.remove());
         }
         
     } catch (error) {
@@ -312,25 +320,31 @@ async function submitTransaction(event) {
         submitBtn.textContent = 'Valider et obtenir l\'accès';
     }
 }
-
-// Fermer le modal de paiement
 function closePaymentModal() {
     const paymentModal = document.getElementById('payment-modal');
     if (paymentModal) {
         paymentModal.style.display = 'none';
     }
-    
-    // Recharger pour actualiser l'interface
-    window.location.reload();
+    // PAS de reload — on met à jour en mémoire
+    // Le premium-blocker sera réinitialisé via resetPremiumBlocker()
 }
 // Après avoir mis à jour currentUser.isPremium = true
 function onPaymentSuccess() {
-    currentUser.isPremium = true;
+    if (currentUser) {
+        currentUser.isPremium = true;
+        localStorage.setItem(CONFIG.STORAGE_KEYS.USER, JSON.stringify(currentUser));
+    }
     localStorage.setItem('userPremium', 'true');
-    
-    // AJOUTER ces lignes
     window.dispatchEvent(new CustomEvent('premiumStatusChanged'));
-    
+
+    // Réinitialiser le blocker
+    if (typeof resetPremiumBlocker === 'function') {
+        setTimeout(resetPremiumBlocker, 300);
+    }
+
+    // Supprimer badges premium
+    document.querySelectorAll('.premium-badge-lesson').forEach(b => b.remove());
+
     closePaymentModal();
 }
 
