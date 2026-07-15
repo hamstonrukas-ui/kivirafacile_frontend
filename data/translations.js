@@ -146,6 +146,8 @@ const translations = {
         goals: "Goals",
         help: "Help",
         about: "About",
+        contactUs: "Contact us",
+        Sponsors: "Sponsors Wall",
         
         // Navigation bottom
         home: "Home",
@@ -402,6 +404,8 @@ const translations = {
         goals: "Bisika",
         help: "Gwaso",
         about: "Lumbu",
+        contactUs: "Tubelengile",
+        Sponsors: "Lukuta lwe bakungi",
         
         // Navigation bottom
         home: "Hambuga",
@@ -413,9 +417,9 @@ const translations = {
         // Page d'accueil
         welcome: "Sambesambe ku Kivirafacile!",
         welcomeText: "Iga kiviila mu bunovu kandi bushoga ne somo ze zihete kulikilana ne kibanju kyobe",
-        yourProgress: "Iterambere ryawe",
-        progressText: "Tangira urugendo rwawe rwo kwiga uyu munsi. Shakisha amasomo yacu kandi wongere amagambo yawe!",
-        lessonOfDay: "Isomo ry'umunsi",
+        yourProgress: "Sendelezo yobe",
+        progressText: "Balika lwendo lobe lwe kuiga ka kanjuba. Lola somo zetu njoga!",
+        lessonOfDay: "Somo ye kanjuba",
         
         // Leçons
         chooseCategory: "Tola njusho",
@@ -441,9 +445,9 @@ const translations = {
         tryAgain: "Shubila monimo",
         
         // Catégories leçons
-        greetings: "Indamutso",
-        family: "Umuryango",
-        food: "Ibiryo",
+        greetings: "Muvyuso",
+        family: "Bulongo",
+        food: "Malya",
         
         // Bibliothèque
         kiviralLibrary: "Bikilo yeKiviila",
@@ -451,10 +455,10 @@ const translations = {
         novels: "ro",
         customsTraditions: "Imigenzo n'Umuco",
         musicsSongs: "Umuziki n'Indirimbo",
-        proverbs: "Imigani",
-        poetry: "Ubusizi",
-        rwandaHistory: "Amateka y'u Rwanda",
-        pages: "impapuro",
+        proverbs: "Mikete",
+        poetry: "Katetezi",
+        rwandaHistory: "Histolia ye baviila",
+        pages: "papulo",
         
         // Dictionnaire
         kiviraDictionary: "Kalolekezo ke kiviila",
@@ -514,6 +518,34 @@ const translations = {
 
         //Payments
          passer: "ingila ku be mutanzi",
+        //Download
+        Download: "Teleshage kivirafacile",
+        Install: "Bika ino apulikasio mu katelambila kobe mu bulumbu bushoga",
+        Openapp: "Vugula Kivirafacile mu chrome",
+        Touch: "Huma ku meni (3 alama)",
+        Select: "Tola kutendeka ku sambilo ye katelambila",
+        Confirm: "Silika muku huma kutendeka",
+        Icon: "Ikone igaboneka ku sambilo ye katelambila kobe",
+        OpenI: "Vugula Kivirafacile mu Safari",
+        TouchI: "Huma ku buto ye kusenda",
+        DoI: "Hinga ne uhume ku sambilo ye katelambila kobe",
+        TouchII: "Huma kutendeka halugulu kunume",
+        IconI: "Ikone igabineka ku sambilo ye katelambila kobe",
+        NeedHelp: "Buswa bwe gwaso? Lola titoliele video yetu",
+        Tuto: "Titoliele ihete lombosa vinagi kubika apulikasio mu katelambila kobe",
+        Be: "Hita mu plemiume",
+        Debloq: "Vugula bikolesho byoshe bye kuiga",
+        Avan: "Bunyemu bwe plemiume",
+        access: "kuyemelwa kukolesha masomo goshe",
+        Warn: "Maliyo ge bwase naho ge gahete yemelwa. ginsi liyo izi lolwa bushoga",
+        Verify: "Tuzilola ginsi kizanga maliyo goshe",
+        All: "Bindu byoshe bye flode biga kangxa",
+        Warning: "Kengulo ye bunyemu",
+        After: "Kukulikila maliyo uga tusendela kizunguza kye liyo ku WhatsApp kuino mbalulo +243855841999",
+    
+        
+    
+     
     }
 };
 
