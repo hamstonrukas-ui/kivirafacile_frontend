@@ -2,7 +2,7 @@
 // Fichier: js/dictionary_frontend_v2.js
 // CORRECTION : Affichage exemples EN KIVIRA avec traductions
 
-const DICTIONARY_API_URL = 'api/dictionary.php';
+const DICTIONARY_API_URL = 'https://kivirafacile-api.onrender.com/api/dictionary/search';
 
 // Détecter la langue de l'utilisateur
 function getUserLanguage() {
@@ -22,7 +22,8 @@ async function searchDictionary(word) {
     
     try {
         const response = await fetch(
-            `${DICTIONARY_API_URL}?action=search&word=${encodeURIComponent(word)}&lang=${lang}`
+    `${DICTIONARY_API_URL}?q=${encodeURIComponent(word)}&lang=${lang}`
+
         );
         
         const data = await response.json();
@@ -64,17 +65,18 @@ function displayDictionaryResults(results) {
             </div>
             
             <p class="word-translation">
-                <strong>→</strong> ${word.translation}
-            </p>
+    <strong>→</strong> ${word.french || word.english || word.swahili || '—'}
+</p>
             
             ${word.type ? `<p class="word-type">${word.type}</p>` : ''}
             
-            ${word.example && word.example.kivira ? `
-                <div class="word-example">
-                    <p class="example-title">📝 Exemple :</p>
-                    <p class="example-kivira"><strong>${word.example.kivira}</strong></p>
-                    <p class="example-translation">${word.example.translation}</p>
-                </div>
+            ${word.example_kivira ? `
+    <div class="word-example">
+        <p class="example-title">📝 Exemple :</p>
+        <p class="example-kivira"><strong>${word.example_kivira}</strong></p>
+        <p class="example-translation">${word.example_translation_fr || ''}</p>
+    </div>
+` : ''}
             ` : ''}
         </div>
     `).join('');
