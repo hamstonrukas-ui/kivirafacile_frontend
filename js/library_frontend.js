@@ -8,8 +8,9 @@
 
 
 // APRÈS
-const API_URL = 'https://kivirafacile-api.onrender.com/api/library';
 
+// APRÈS
+const API_URL = 'https://kivirafacile-api.onrender.com/api/library';
 // État global
 let libraryInitialized = false;
 let currentCategory = null;
