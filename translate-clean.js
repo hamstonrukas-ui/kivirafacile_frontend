@@ -154,7 +154,7 @@
             if (method) {
                 method.textContent = data.fromCache
                     ? '⚡ Traduction instantanée (cache)'
-                    : '🤖 KiviraAI (Claude Haiku)';
+                    : ;
                 if (data.quotaRemaining != null) {
                     method.textContent += ` · ${data.quotaRemaining} gratuite(s) restante(s)`;
                 }
