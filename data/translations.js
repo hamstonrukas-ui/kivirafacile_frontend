@@ -889,22 +889,22 @@ const translations = {
         All: "Bindu byoshe bye flode biga kangxa",
         Warning: "Kengulo ye bunyemu",
         After: "Kukulikila maliyo uga tusendela kizunguza kye liyo ku WhatsApp kuino mbalulo +243855841999",
-        return: "", // à traduire en Kivira
-        question: "", // à traduire en Kivira
-        how: "", // à traduire en Kivira
-        the_translator: "", // à traduire en Kivira
-        Why: "", // à traduire en Kivira
-        whyAnswer: "", // à traduire en Kivira
-        pendingStatus: "", // à traduire en Kivira
-        progressByDomain: "", // à traduire en Kivira
-        noProgressYet: "", // à traduire en Kivira
-        shareTitle: "", // à traduire en Kivira
-        shareIntro: "", // à traduire en Kivira
-        shareVia: "", // à traduire en Kivira
-        copyLink: "", // à traduire en Kivira
-        shareMessageTitle: "", // à traduire en Kivira
-        shareMessageText: "", // à traduire en Kivira
-        needMoreHelp: "", // à traduire en Kivira
+        return: "Shubilo", // à traduire en Kivira
+        question: "Tuno", // à traduire en Kivira
+        how: "Vinagi", // à traduire en Kivira
+        the_translator: "Mubabalanduzi", // à traduire en Kivira
+        Why: "Lumbulweki", // à traduire en Kivira
+        whyAnswer: "Lumbulweki kushuvya", // à traduire en Kivira
+        pendingStatus: "Sitati", // à traduire en Kivira
+        progressByDomain: "Musendelezo", // à traduire en Kivira
+        noProgressYet: "Bisesendelezwa", // à traduire en Kivira
+        shareTitle: "Kugaba", // à traduire en Kivira
+        shareIntro: "Kugaba kiingilili", // à traduire en Kivira
+        shareVia: "Kugaba ne", // à traduire en Kivira
+        copyLink: "kukopiye", // à traduire en Kivira
+        shareMessageTitle: "Kugaba lusendo", // à traduire en Kivira
+        shareMessageText: "Kugzba lusendo", // à traduire en Kivira
+        needMoreHelp: "Magwaso kandi ne kandi", // à traduire en Kivira
         teamHereToHelp: "", // à traduire en Kivira
         clickToContact: "", // à traduire en Kivira
         howValidate: "", // à traduire en Kivira
@@ -978,7 +978,7 @@ const translations = {
         premiumBenefit5: "", // à traduire en Kivira
         premiumBenefit6: "", // à traduire en Kivira
         premiumBenefit7: "", // à traduire en Kivira
-        howToPay: "", // à traduire en Kivira
+        howToPay: "Vinagi wanga liya", // à traduire en Kivira
         returnBtn: "", // à traduire en Kivira
     
         
