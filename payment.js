@@ -31,7 +31,7 @@ function injectPaymentModal() {
                         <span class="operator-icon">🟡</span>
                         <div>
                             <div class="operator-name">Airtel Money</div>
-                            <div class="operator-number" id="airtel-number">+243 99 123 4567</div>
+                            <div class="operator-number" id="airtel-number">+243 97 805 0574</div>
                         </div>
                         <button class="copy-btn" onclick="copyNumber('airtel')">📋</button>
                     </div>
@@ -40,7 +40,7 @@ function injectPaymentModal() {
                         <span class="operator-icon">🟠</span>
                         <div>
                             <div class="operator-name">Orange Money</div>
-                            <div class="operator-number" id="orange-number">+243 84 123 4567</div>
+                            <div class="operator-number" id="orange-number">+243 85 421 7357</div>
                         </div>
                         <button class="copy-btn" onclick="copyNumber('orange')">📋</button>
                     </div>
