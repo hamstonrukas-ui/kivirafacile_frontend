@@ -49,7 +49,7 @@ function injectPaymentModal() {
                         <span class="operator-icon">🔴</span>
                         <div>
                             <div class="operator-name">M-Pesa (Vodacom)</div>
-                            <div class="operator-number" id="mpesa-number">+243 81 123 4567</div>
+                            <div class="operator-number" id="mpesa-number">+243 83 442 4452</div>
                         </div>
                         <button class="copy-btn" onclick="copyNumber('mpesa')">📋</button>
                     </div>
