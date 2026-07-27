@@ -97,7 +97,7 @@ function injectAuthScreen() {
                     <form onsubmit="handleLogin(event)">
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" id="login-email" required placeholder="votre@email.com">
+                            <input type="email" id="login-email" required placeholder="votre@gmail.com">
                         </div>
                         <div class="form-group">
                             <label>Mot de passe</label>
@@ -126,7 +126,7 @@ function injectAuthScreen() {
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" id="register-email" required placeholder="votre@email.com">
+                            <input type="email" id="register-email" required placeholder="votre@gmail.com">
                         </div>
                         <div class="form-group">
                             <label>Mot de passe</label>
