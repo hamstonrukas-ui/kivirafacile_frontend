@@ -100,8 +100,8 @@ function injectAuthScreen() {
                             <input type="email" id="login-email" required placeholder="votre@email.com">
                         </div>
                         <div class="form-group">
-                            <label>Nickname</label>
-                            <input type="text" id="login-nick" required placeholder="Votre nickname" minlength="3">
+                            <label>Mot de passe</label>
+                            <input type="text" id="login-nick" required placeholder="Votre mot de passe" minlength="3">
                         </div>
                         <button type="submit" class="btn-primary" id="login-btn">
                             Se connecter
@@ -129,8 +129,8 @@ function injectAuthScreen() {
                             <input type="email" id="register-email" required placeholder="votre@email.com">
                         </div>
                         <div class="form-group">
-                            <label>Nickname</label>
-                            <input type="text" id="register-nick" required placeholder="Votre nickname" minlength="3">
+                            <label>Mot de passe</label>
+                            <input type="text" id="register-nick" required placeholder="Votre mot de passe" minlength="3">
                         </div>
                         <button type="submit" class="btn-primary" id="register-btn">
                             S'inscrire
