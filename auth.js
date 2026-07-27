@@ -100,8 +100,8 @@ function injectAuthScreen() {
                             <input type="email" id="login-email" required placeholder="exemple123@gmail.com" pattern="[a-z0-9]+@(gmail\.com|outlook\.com|yahoo\.fr)" title="Lettres/chiffres minuscules uniquement, domaine @gmail.com, @outlook.com ou @yahoo.fr">
                         </div>
                         <div class="form-group">
-                            <label>Nickname</label>
-                            <input type="password" id="login-nick" required placeholder="Votre nickname" minlength="8">
+                            <label>Mot de passe</label>
+                            <input type="password" id="login-nick" required placeholder="Votre mot de passe" minlength="8">
                         </div>
                         <button type="submit" class="btn-primary" id="login-btn">
                             Se connecter
@@ -129,8 +129,8 @@ function injectAuthScreen() {
                             <input type="email" id="register-email" required placeholder="exemple123@gmail.com" pattern="[a-z0-9]+@(gmail\.com|outlook\.com|yahoo\.fr)" title="Lettres/chiffres minuscules uniquement, domaine @gmail.com, @outlook.com ou @yahoo.fr">
                         </div>
                         <div class="form-group">
-                            <label>Nickname</label>
-                            <input type="password" id="register-nick" required placeholder="Votre nickname" minlength="8">
+                            <label>Mot de passe</label>
+                            <input type="password" id="register-nick" required placeholder="Mot de passe" minlength="8">
                         </div>
                         <button type="submit" class="btn-primary" id="register-btn">
                             S'inscrire
