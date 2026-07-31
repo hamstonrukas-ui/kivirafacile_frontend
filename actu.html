@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kivirafacile — Actualité</title>
+<meta property="og:site_name" content="Kivirafacile">
+<meta property="og:url" content="https://kivirafacilee.vercel.app/actu.html">
+<meta property="og:title" content="Kivirafacile — Actualités">
+<meta property="og:description" content="Suivez les dernières actualités de Kivirafacile, l'app pour apprendre le Kivira.">
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: #f5f5f7;
+        color: #1a1a1a;
+        line-height: 1.6;
+    }
+    .top-bar {
+        background: #6d28d9;
+        color: white;
+        padding: 16px 20px;
+        font-weight: 700;
+        font-size: 18px;
+    }
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: white;
+        min-height: calc(100vh - 56px);
+    }
+    .article-image {
+        width: 100%;
+        max-height: 320px;
+        object-fit: cover;
+        display: block;
+    }
+    .article-body {
+        padding: 20px;
+    }
+    .article-date {
+        color: #6b7280;
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+    .article-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 16px;
+    }
+    .article-content {
+        font-size: 16px;
+        white-space: pre-wrap;
+        margin-bottom: 28px;
+    }
+    .cta {
+        display: block;
+        background: #6d28d9;
+        color: white;
+        text-align: center;
+        padding: 14px;
+        border-radius: 10px;
+        font-weight: 600;
+        text-decoration: none;
+        margin-bottom: 12px;
+    }
+    .cta-secondary {
+        background: #f3f4f6;
+        color: #1a1a1a;
+    }
+    .loading, .error {
+        padding: 60px 20px;
+        text-align: center;
+        color: #6b7280;
+    }
+</style>
+</head>
+<body>
+
+<div class="top-bar">📰 Kivirafacile</div>
+
+<div class="container">
+    <div id="content">
+        <div class="loading">Chargement de l'actualité...</div>
+    </div>
+</div>
+
+<script>
+    // ⚠️ Adaptez cette URL si votre API change d'adresse
+    const API_URL = 'https://kivirafacile-api.onrender.com/api';
+
+    function getArticleId() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('id');
+    }
+
+    async function loadArticle() {
+        const id = getArticleId();
+        const contentDiv = document.getElementById('content');
+
+        if (!id) {
+            contentDiv.innerHTML = '<div class="error">❌ Actualité introuvable (identifiant manquant).</div>';
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API_URL}/actualites/public/${id}`);
+            const data = await response.json();
+
+            if (!response.ok) {
+                contentDiv.innerHTML = `<div class="error">❌ ${data.error || 'Actualité introuvable.'}</div>`;
+                return;
+            }
+
+            const a = data.actualite;
+            const dateStr = new Date(a.publie_le).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+            document.title = `Kivirafacile — ${a.titre}`;
+
+            contentDiv.innerHTML = `
+                ${a.image_url ? `<img src="${a.image_url}" class="article-image" alt="${escapeHtml(a.titre)}">` : ''}
+                <div class="article-body">
+                    <div class="article-date">${dateStr}</div>
+                    <div class="article-title">${escapeHtml(a.titre)}</div>
+                    <div class="article-content">${escapeHtml(a.contenu)}</div>
+                    <a class="cta" href="/">📲 Ouvrir Kivirafacile</a>
+                    <a class="cta cta-secondary" href="#" onclick="partager(event, '${escapeHtml(a.titre).replace(/'/g, "\\'")}')">📤 Partager cette actualité</a>
+                </div>
+            `;
+        } catch (e) {
+            contentDiv.innerHTML = '<div class="error">❌ Erreur de connexion. Réessayez plus tard.</div>';
+        }
+    }
+
+    function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str || '';
+        return div.innerHTML;
+    }
+
+    function partager(event, titre) {
+        event.preventDefault();
+        const url = window.location.href;
+        const texte = `${titre} — via Kivirafacile\n${url}`;
+
+        if (navigator.share) {
+            navigator.share({ title: titre, text: texte, url });
+        } else {
+            window.open(`https://wa.me/?text=${encodeURIComponent(texte)}`, '_blank');
+        }
+    }
+
+    loadArticle();
+</script>
+
+</body>
+</html>
